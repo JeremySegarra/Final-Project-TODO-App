@@ -1,4 +1,4 @@
-# This repo will hold my TODO App final project
+# This repo will hold my TODO App final project and assignments
 
 ## Graduate Level Advanced Web Programming - Spring 2022
 
