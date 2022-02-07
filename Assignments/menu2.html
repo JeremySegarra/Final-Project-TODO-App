@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="styles2.css" /> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: sans-serif;
+        background-color: rgba(201, 255, 196, 0.297);
+      }
+      a {
+        text-decoration: none;
+      }
+
+      /* START OF THE MAIN HEADER CSS */
+
+      .main-header {
+        padding: 18px;
+        background-color: rgba(0, 138, 0, 0.803);
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      /* End OF THE MAIN HEADER CSS */
+
+      /* START OF LIST CONTAINERS */
+
+      .main-container {
+        width: 300px;
+        display: flex;
+        justify-content: flex-start;
+        position: absolute;
+        left: -1px;
+        top: 10px;
+      }
+      .file-container {
+        flex: 1;
+        z-index: 1000;
+      }
+      .edit-container {
+        flex: 1;
+        z-index: 1000;
+      }
+      .view-container {
+        flex: 1;
+        z-index: 1000;
+      }
+
+      .file-title {
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .edit-title {
+        text-align: center;
+      }
+
+      .view-title {
+        font-weight: bold;
+        text-align: center;
+      }
+
+      /* END OF LIST CONTAINERS */
+
+      /* LIST CONTENT BACKGROUNDS + LIST STYLES START */
+
+      li {
+        list-style: none;
+        /* line-height: 30px; */
+      }
+
+      .file-container:hover {
+        background-color: rgb(0, 184, 6);
+      }
+
+      .edit-container:hover {
+        background-color: rgb(0, 184, 6);
+      }
+
+      .view-container:hover {
+        background-color: rgb(0, 184, 6);
+      }
+
+      /* LIST CONTENT BACKGROUNDS + LIST STYLES END */
+
+      /* HANDLING DROP DOWN LISTS START */
+
+      li {
+        padding-top: 10px;
+        text-align: center;
+      }
+
+      .list li:hover {
+        background-color: lawngreen;
+        cursor: pointer;
+      }
+      .list a:active {
+        color: red;
+      }
+
+      /* HIDING DROPDOWN LIST CONTENT START */
+
+      .list {
+        display: none;
+      }
+      .list:hover {
+        display: block;
+      }
+      .file-title:hover + .list {
+        display: block;
+      }
+      .edit-title:hover + .dropdown-edit {
+        display: block;
+      }
+      .view-title:hover + .list {
+        display: block;
+      }
+
+      /* EXTRA CREDIT */
+
+      .edit-title:focus + .list {
+        display: block;
+        background-color: rgb(0, 184, 6);
+      }
+
+      /* EXTRA CREDIT */
+
+      /* HIDING DROPDOWN LIST CONTENT END*/
+
+      /* START OF INTRUCTIONS + EXTRA CREDIT PARAGRAPHS */
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      section {
+        width: 90%;
+      }
+
+      h2 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+      }
+
+      p span {
+        font-style: italic;
+        font-weight: bold;
+      }
+
+      .instructions {
+        background-color: white;
+        padding: 30px;
+        border-left: 5px solid rgb(2, 167, 2);
+        max-width: 1080px;
+      }
+
+      .extra-credit {
+        background-color: white;
+        padding: 30px;
+        border-left: 5px solid rgba(249, 249, 0, 0.973);
+        max-width: 1080px;
+      }
+
+      /* END OF INTRUCTIONS + EXTRA CREDIT PARAGRAPHS */
+    </style>
+    <title>Menu</title>
+  </head>
+
+  <!-- START OF HTML BODY -->
+  <body>
+    <header class="main-header">
+      <div class="main-container">
+        <div class="file-container">
+          <p class="file-title">File</p>
+
+          <ul class="list">
+            <li><a href="menu2.html">New</a></li>
+            <li><a href="menu2.html">Open</a></li>
+            <li><a href="menu2.html">Save</a></li>
+            <li><a href="menu2.html">Print</a></li>
+            <li><a href="menu2.html">Close</a></li>
+          </ul>
+        </div>
+        <div class="edit-container">
+          <p class="edit-title" tabindex="0">Edit</p>
+          <div class="dropdown-edit list">
+            <ul>
+              <li><a href="menu2.html">Undo</a></li>
+              <li><a href="menu2.html">Redo</a></li>
+              <li><a href="menu2.html">Cut</a></li>
+              <li><a href="menu2.html">Copy</a></li>
+              <li><a href="menu2.html">Paste</a></li>
+              <li><a href="menu2.html">Delete</a></li>
+              <li><a href="menu2.html">Select All</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="view-container">
+          <p class="view-title">View</p>
+
+          <ul class="list">
+            <li><a href="menu2.html">Zoom In</a></li>
+            <li><a href="menu2.html">Zoom Out</a></li>
+            <li><a href="menu2.html">Actual Size</a></li>
+            <li><a href="menu2.html">Fit Page</a></li>
+            <li><a href="menu2.html">Fit Width</a></li>
+            <li><a href="menu2.html">Fit Height</a></li>
+            <li><a href="menu2.html">Rotate Right</a></li>
+            <li><a href="menu2.html">Rotate Left</a></li>
+            <li><a href="menu2.html">Fit Screem</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <section class="instructions">
+        <h2>Instructions</h2>
+        <p>
+          Recreate this page using <span>only CSS</span>. Do yourself a favor
+          and 1) Do not view the source. Figure it out yourself. 2) Do not
+          search for the solution. Learn CSS until you know enough to do this.
+        </p>
+      </section>
+      <section class="extra-credit">
+        <h2>Extra Credit</h2>
+        <p>
+          Notice how the Edit menu (besides for not being bold) reacts to
+          clicks. If you click the edit menu, it remains open until you click
+          somewhere else. (This you might need to search for)
+        </p>
+      </section>
+    </div>
+  </body>
+</html>
