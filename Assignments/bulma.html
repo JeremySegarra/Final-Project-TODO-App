@@ -171,7 +171,7 @@
             <nav class="panel">
               <div class="tabs is-boxed">
                 <ul>
-                  <li class="is-active">
+                  <li>
                     <a>
                       <span class="icon is-small"
                         ><i class="fas fa-clipboard-list"></i
@@ -195,7 +195,7 @@
                       <span>Upcoming</span>
                     </a>
                   </li>
-                  <li>
+                  <li class="is-active">
                     <a>
                       <span class="icon is-small"
                         ><i class="fas fa-calendar"></i
@@ -205,62 +205,49 @@
                   </li>
                 </ul>
               </div>
-              <div class="panel-block">
-                <p class="control has-icons-left">
-                  <input
-                    class="input is-primary"
-                    type="text"
-                    placeholder="New Task"
-                  />
-                  <span class="icon is-left">
-                    <i class="fas fa-calendar-plus"></i>
-                    <!-- Change Icon Here -->
-                  </span>
-                </p>
+              <div id="input-field" class="panel-block">
+                <div class="field-body">
+                  <div class="field is-expanded">
+                    <div class="field has-addons">
+                      <p class="control is-expanded has-icons-left">
+                        <input
+                          class="input is-primary"
+                          type="text"
+                          placeholder="New Task"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-calendar-plus"></i>
+                        </span>
+                      </p>
+                      <p class="control">
+                        <button class="button is-primary">Add</button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <!-- <p class="panel-tabs">
-                <a class="is-active">All</a>
-                <a>Public</a>
-                <a>Private</a>
-                <a>Sources</a>
-                <a>Forks</a>
-              </p> -->
+
               <!-- Make icons into checkboxes down here -->
-              <a class="panel-block is-active">
+              <a class="panel-block is-active active1 todo-row">
                 <input type="checkbox" checked="checked" />
                 Make Bulma great again
               </a>
-              <a class="panel-block">
-                <input type="checkbox" />
+              <a class="panel-block todo-row">
+                <input id="features" type="checkbox" />
                 Add some more features
               </a>
-              <a class="panel-block">
+              <a class="panel-block todo-row">
                 <input type="checkbox" />
                 Make a github account
               </a>
-              <a class="panel-block">
+              <a class="panel-block todo-row">
                 <input type="checkbox" />
                 Learn how to use github
               </a>
-              <a class="panel-block">
+              <a class="panel-block todo-row">
                 <input type="checkbox" />
                 add a .gitignore file
               </a>
-              <!-- <a class="panel-block">
-                <span class="panel-icon">
-                  <i class="fas fa-code-branch" aria-hidden="true"></i>
-                </span>
-                mojs
-              </a> -->
-              <!-- <label class="panel-block">
-                <input type="checkbox" />
-                remember me
-              </label> -->
-              <!-- <div class="panel-block">
-                <button class="button is-link is-outlined is-fullwidth">
-                  Reset all filters
-                </button>
-              </div> -->
             </nav>
           </div>
           <!-- End of Middle Container -->
@@ -306,5 +293,77 @@
       </div>
       <!-- End of Container -->
     </section>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      $(".tabs li").click(function () {
+        $(".tabs li").removeClass("is-active");
+        $(this).addClass("is-active");
+
+        const activeTab = $(this).text().trim();
+        const notCheckedBoxes = $(".todo-row input:not(:checked)").get();
+        const checkedBoxes = $(".todo-row input:checked").get();
+
+        if (activeTab === "Completed") {
+          for (box of notCheckedBoxes) {
+            $(box).parent().css({
+              display: "none",
+            });
+          }
+          $("#input-field").css({
+            display: "none",
+          });
+        } else {
+          for (box of notCheckedBoxes) {
+            $(box).parent().css({
+              display: "flex",
+            });
+          }
+          $("#input-field").css({
+            display: "flex",
+          });
+        }
+
+        if (activeTab === "Current") {
+          for (box of checkedBoxes) {
+            $(box).parent().css({
+              display: "none",
+            });
+          }
+        } else {
+          for (box of checkedBoxes) {
+            $(box).parent().css({
+              display: "flex",
+            });
+          }
+        }
+      });
+
+      $(".active1").css({
+        "text-decoration-line": "line-through",
+      });
+
+      $(".panel-block input").click(function () {
+        const checkboxValue = $(this).is(":checked");
+
+        if (checkboxValue) {
+          $(this).parent().css({
+            "text-decoration-line": "line-through",
+          });
+        } else {
+          $(this).parent().css({
+            "text-decoration-line": "none",
+          });
+        }
+        // console.log(checkboxValue);
+        // console.log(this);
+      });
+    </script>
   </body>
 </html>
