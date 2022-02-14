@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"
+    />
+
+    <style></style>
+
+    <title>Bulma Assignment</title>
+  </head>
+  <body>
+    <div id="app">
+      <nav class="navbar is-primary">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img
+              src="bulma-logo-white.png"
+              alt="Bulma: a modern CSS framework based on Flexbox"
+              width="112"
+              height="28"
+            />
+          </a>
+          <div
+            class="navbar-burger"
+            data-target="navbarExampleTransparentExample"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="https://bulma.io/"> Home </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a
+                class="navbar-link"
+                href="https://bulma.io/documentation/overview/start/"
+              >
+                Docs
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/overview/start/"
+                >
+                  Overview
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/overview/modifiers/"
+                >
+                  Modifiers
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/columns/basics/"
+                >
+                  Columns
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/layout/container/"
+                >
+                  Layout
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/form/general/"
+                >
+                  Form
+                </a>
+                <hr class="navbar-divider" />
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/elements/box/"
+                >
+                  Elements
+                </a>
+                <a
+                  class="navbar-item is-active"
+                  href="https://bulma.io/documentation/components/breadcrumb/"
+                >
+                  Components
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a
+                    class="bd-tw-button button"
+                    data-social-network="Twitter"
+                    data-social-action="tweet"
+                    data-social-target="https://bulma.io"
+                    target="_blank"
+                    href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"
+                  >
+                    <span class="icon">
+                      <i class="fab fa-twitter"></i>
+                    </span>
+                    <span> Tweet </span>
+                  </a>
+                </p>
+                <p class="control">
+                  <a
+                    class="button is-primary"
+                    href="https://github.com/jgthms/bulma/releases/download/0.9.3/bulma-0.9.3.zip"
+                  >
+                    <span class="icon">
+                      <i class="fas fa-download"></i>
+                    </span>
+                    <span>Download</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- End of Navbar -->
+
+      <section class="section">
+        <div class="container">
+          <div class="columns">
+            <!-- Start Card Container Column -->
+            <div class="column is-3">
+              <div class="card-container">
+                <div class="card">
+                  <header class="card-header">
+                    <p class="card-header-title">Component</p>
+                    <button class="card-header-icon" aria-label="more options">
+                      <span class="icon">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </header>
+                  <div class="card-content">
+                    <div class="content">
+                      {{hello}}
+                      <a href="#">@bulmaio</a>. <a href="#">#css</a>
+                      <a href="#">#responsive</a>
+                      <br />
+                      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                    </div>
+                  </div>
+                  <footer class="card-footer">
+                    <a href="#" class="card-footer-item">Save</a>
+                    <a href="#" class="card-footer-item">Edit</a>
+                    <a href="#" class="card-footer-item">Delete</a>
+                  </footer>
+                </div>
+              </div>
+            </div>
+            <!-- End of Card container -->
+            <!-- Middle Container Column -->
+            <div class="column is-6">
+              <nav class="panel">
+                <div class="tabs is-boxed">
+                  <ul>
+                    <li
+                      v-for="(item, index) in tabs"
+                      key="item"
+                      @click="toggleTab(index)"
+                      :class="item.active"
+                    >
+                      <a>
+                        <span class="icon is-small"
+                          ><i :class="`fas fa-${item.type}`"></i
+                        ></span>
+                        <span>{{item.message}}</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div id="input-field" class="panel-block">
+                  <div class="field-body">
+                    <div class="field is-expanded">
+                      <div class="field has-addons">
+                        <p class="control is-expanded has-icons-left">
+                          <input
+                            class="input is-primary"
+                            type="text"
+                            placeholder="New Task"
+                            v-model="userInput"
+                            @keydown.enter="addResource"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-calendar-plus"></i>
+                          </span>
+                        </p>
+                        <p class="control">
+                          <button
+                            class="button is-primary"
+                            @click="addResource"
+                          >
+                            Add
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Make icons into checkboxes down here -->
+
+                <a
+                  v-for="(input, index) in checkBoxes"
+                  key="input"
+                  class="panel-block is-active todo-row"
+                  :style="{'display' : input.display, 'text-decoration-line' : input.style}"
+                >
+                  <input
+                    type="checkbox"
+                    :checked="input.mark === 'checked'"
+                    @click="updateMark(input.mark, index)"
+                  />
+                  {{input.content}}
+                </a>
+              </nav>
+            </div>
+            <!-- End of Middle Container -->
+            <!-- Start of menu container Column -->
+            <div class="column is-3">
+              <h1 class="title">Table of contents</h1>
+              <h2 class="subtitle">Intra-page navigation</h2>
+
+              <div class="menu-container">
+                <aside class="menu">
+                  <p class="menu-label">General</p>
+                  <ul class="menu-list">
+                    <li><a>Dashboard</a></li>
+                    <li><a>Customers</a></li>
+                  </ul>
+                  <p class="menu-label">Administration</p>
+                  <ul class="menu-list">
+                    <li><a>Team Settings</a></li>
+                    <li>
+                      <a class="is-active">Manage Your Team</a>
+                      <ul>
+                        <li><a>Members</a></li>
+                        <li><a>Plugins</a></li>
+                        <li><a>Add a member</a></li>
+                      </ul>
+                    </li>
+                    <li><a>Invitations</a></li>
+                    <li><a>Cloud Storage Environment Settings</a></li>
+                    <li><a>Authentication</a></li>
+                  </ul>
+                  <p class="menu-label">Transactions</p>
+                  <ul class="menu-list">
+                    <li><a>Payments</a></li>
+                    <li><a>Transfers</a></li>
+                    <li><a>Balance</a></li>
+                  </ul>
+                </aside>
+              </div>
+            </div>
+            <!-- End of menu container Column-->
+          </div>
+          <!-- End of Columns Container -->
+        </div>
+        <!-- End of Container -->
+      </section>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            hello: "Hello Vue!",
+            activeTab: "All",
+            userInput: "",
+            display: "",
+            checkBoxes: [
+              {
+                content: "Make Bulma great again",
+                mark: "checked",
+                display: "",
+                style: "line-through",
+              },
+              {
+                content: "Add some more features",
+                mark: "",
+                display: "",
+                style: "",
+              },
+              {
+                content: "Make a github account",
+                mark: "",
+                display: "",
+                style: "",
+              },
+              {
+                content: "Learn how to use github",
+                mark: "",
+                display: "",
+                style: "",
+              },
+              {
+                content: "add a .gitignore file",
+                mark: "",
+                display: "",
+                style: "",
+              },
+            ],
+
+            tabs: [
+              {
+                message: "Current",
+                type: "clipboard-list",
+                active: "",
+                prev: "",
+              },
+              {
+                message: "Completed",
+                type: "calendar-times",
+                active: "",
+                prev: "",
+              },
+              {
+                message: "Upcoming",
+                type: "calendar-day",
+                active: "",
+                prev: "",
+              },
+              {
+                message: "All",
+                type: "calendar",
+                active: "is-active",
+                prev: "",
+              },
+            ],
+          };
+        },
+        computed: {},
+        methods: {
+          toggleTab(index) {
+            this.activeTab = this.tabs[index].message;
+            this.tabs[index].active = "is-active";
+            this.tabs[index].prev = "currently-active";
+
+            this.tabs.forEach((element) => {
+              if (element.active === "is-active" && element.prev === "") {
+                element.active = "";
+              } else {
+                element.prev = "";
+              }
+            });
+
+            if (this.activeTab === "Completed") {
+              this.checkBoxes.forEach((element) => {
+                element.style = "";
+                if (element.mark !== "checked") {
+                  this.display = "none";
+                  element.display = this.display;
+                } else {
+                  this.display = "flex";
+                  element.display = this.display;
+                }
+              });
+            } else if (this.activeTab === "Current") {
+              console.log("I am in if Current");
+
+              this.checkBoxes.forEach((element) => {
+                element.style = "";
+
+                if (element.mark === "checked") {
+                  this.display = "none";
+                  element.display = this.display;
+                } else {
+                  this.display = "flex";
+                  element.display = this.display;
+                }
+              });
+            } else {
+              this.checkBoxes.forEach((element) => {
+                if (element.mark === "checked") {
+                  element.style = "line-through";
+                }
+                this.display = "flex";
+                element.display = this.display;
+              });
+            }
+          },
+
+          addResource() {
+            if (this.activeTab === "Completed") {
+              this.checkBoxes.unshift({
+                content: this.userInput,
+                mark: "",
+                display: "none",
+              });
+            } else {
+              this.checkBoxes.unshift({
+                content: this.userInput,
+                mark: "",
+                display: "flex",
+              });
+            }
+            this.userInput = "";
+          },
+
+          updateMark(mark, index) {
+            if (mark === "checked") {
+              mark = "";
+              this.checkBoxes[index].mark = mark;
+            } else {
+              mark = "checked";
+              this.checkBoxes[index].mark = mark;
+            }
+            if (this.activeTab === "Completed" && mark === "") {
+              this.checkBoxes[index].display = "none";
+            } else if (this.activeTab === "Current" && mark === "checked") {
+              this.checkBoxes[index].display = "none";
+            }
+
+            if (
+              this.activeTab !== "Completed" &&
+              this.activeTab !== "Current" &&
+              mark === "checked"
+            ) {
+              this.checkBoxes[index].style = "line-through";
+            } else {
+              this.checkBoxes[index].style = "";
+            }
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
