@@ -2,18 +2,11 @@
   "name": "final-project-todo-app",
   "version": "1.0.0",
   "description": "## Graduate Level Advanced Web Programming - Spring 2022",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JeremySegarra/Final-Project-TODO-App.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JeremySegarra/Final-Project-TODO-App/issues"
-  },
-  "homepage": "https://github.com/JeremySegarra/Final-Project-TODO-App#readme"
+  }
 }
