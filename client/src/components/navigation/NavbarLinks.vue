@@ -11,12 +11,13 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import LoginSignupButtons from "./LoginSignupButtons.vue";
 
-export default {
+export default defineComponent({
   props: ["clicked", "display"],
   components: { LoginSignupButtons },
-};
+});
 </script>
 
 <style scoped>

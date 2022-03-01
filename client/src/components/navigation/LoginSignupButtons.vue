@@ -2,8 +2,8 @@
   <div class="navbar-end">
     <div class="navbar-item">
       <div class="buttons">
-        <a class="button is-primary"> Login </a>
-        <a class="button is-primary"> Sign Up </a>
+        <a class="button is-primary"> Logout </a>
+        <!-- <a class="button is-primary"> Sign Up </a> -->
       </div>
     </div>
   </div>
@@ -15,5 +15,9 @@
   border-color: transparent;
   color: black;
   font-weight: 400;
+}
+.button.is-primary:hover {
+  background-color: #82e0aa;
+  color: black;
 }
 </style>

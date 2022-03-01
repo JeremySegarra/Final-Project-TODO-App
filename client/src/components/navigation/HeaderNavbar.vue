@@ -19,8 +19,9 @@
 <script lang="ts">
 import NavbarLinks from "./NavbarLinks.vue";
 import NavbarBurger from "./NavbarBurger.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     NavbarLinks,
     NavbarBurger,
@@ -45,7 +46,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style scoped>
