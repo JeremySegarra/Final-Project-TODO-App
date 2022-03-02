@@ -3,7 +3,7 @@
     <div class="navbar-brand">
       <a class="navbar-item">
         <img
-          src="Wellness-Logo.png"
+          src="/Wellness-Logo.png"
           alt=""
           style="max-height: 80px"
           width="100"
