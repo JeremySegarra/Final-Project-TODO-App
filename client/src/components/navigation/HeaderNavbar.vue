@@ -3,7 +3,7 @@
     <div class="navbar-brand">
       <a class="navbar-item">
         <img
-          src="/Wellness-Logo.png"
+          src="/assets/wellness-logo.png"
           alt=""
           style="max-height: 80px"
           width="100"
@@ -16,37 +16,24 @@
   </nav>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import NavbarLinks from "./NavbarLinks.vue";
 import NavbarBurger from "./NavbarBurger.vue";
-import { defineComponent } from "vue";
+import { ref, reactive, onMounted } from "vue";
 
-export default defineComponent({
-  components: {
-    NavbarLinks,
-    NavbarBurger,
-  },
+const isClicked = ref(false);
+const display = ref("");
+const isLoggedIn = ref(false);
 
-  data() {
-    return {
-      isClicked: false,
-      display: "",
-      isLoggedIn: false,
-    };
-  },
+function showLinks() {
+  isClicked.value = !isClicked.value;
 
-  methods: {
-    showLinks() {
-      this.isClicked = !this.isClicked;
-
-      if (this.isClicked) {
-        this.display = "is-active";
-      } else {
-        this.display = "none";
-      }
-    },
-  },
-});
+  if (isClicked.value) {
+    display.value = "is-active";
+  } else {
+    display.value = "none";
+  }
+}
 </script>
 
 <style scoped>

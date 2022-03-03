@@ -10,14 +10,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import LoginSignupButtons from "./LoginSignupButtons.vue";
 
-export default defineComponent({
-  props: ["clicked", "display"],
-  components: { LoginSignupButtons },
-});
+const props = defineProps({ display: String });
 </script>
 
 <style scoped>

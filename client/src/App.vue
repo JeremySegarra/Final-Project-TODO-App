@@ -8,20 +8,8 @@
   <Footer></Footer>
 </template>
 
-<script lang="ts">
-import Card from "./components/UI/Card.vue";
-import HeaderNavbar from "./components/navigation/HeaderNavbar.vue";
+<script setup lang="ts">
 import ColumnLayout from "./components/layout/ColumnLayout.vue";
-import Footer from "./components/UI/Footer.vue";
-
-export default {
-  components: {
-    Card,
-    HeaderNavbar,
-    ColumnLayout,
-    Footer,
-  },
-};
 </script>
 
 <style>
