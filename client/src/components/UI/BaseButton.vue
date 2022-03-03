@@ -1,9 +1,7 @@
 <template>
-  <div class="buttons">
-    <a class="button is-primary">
-      <slot></slot>
-    </a>
-  </div>
+  <a class="button is-primary">
+    <slot></slot>
+  </a>
 </template>
 
 <style>
@@ -12,5 +10,9 @@
   border-color: transparent;
   color: black;
   font-weight: 400;
+}
+.button.is-primary:hover {
+  background-color: #82e0aa;
+  color: black;
 }
 </style>

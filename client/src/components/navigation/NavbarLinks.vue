@@ -5,13 +5,18 @@
       <a href="#" class="navbar-item"><strong>To Do</strong></a>
       <a href="#" class="navbar-item"><strong>Budget</strong></a>
     </div>
-
-    <LoginSignupButtons></LoginSignupButtons>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <BaseButton>Logout</BaseButton>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import LoginSignupButtons from "./LoginSignupButtons.vue";
+import BaseButton from "../UI/BaseButton.vue";
 
 const props = defineProps({ display: String });
 </script>
