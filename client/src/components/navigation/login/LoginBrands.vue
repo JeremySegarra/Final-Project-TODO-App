@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { RouterLink } from "vue-router";
+</script>
+
 <template>
   <div class="section">
     <p><strong>Sign Up Using</strong></p>
@@ -16,7 +20,9 @@
   <div class="field">
     <div class="section">
       <p><strong>Or Sign Up Using</strong></p>
-      <a href="#" class="button signup-brand is-rounded is-info">Sign Up</a>
+      <RouterLink to="/signup" class="button signup-brand is-rounded is-info"
+        >Sign Up</RouterLink
+      >
     </div>
   </div>
 </template>
