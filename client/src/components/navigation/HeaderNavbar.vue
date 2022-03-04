@@ -4,7 +4,7 @@
       <a class="navbar-item">
         <img
           src="/assets/wellness-logo.png"
-          alt=""
+          alt="image of happy person"
           style="max-height: 80px"
           width="100"
         />
@@ -39,5 +39,11 @@ function showLinks() {
 <style scoped>
 .navbar.is-light {
   background-color: #aed6f1;
+}
+.navbar.has-shadow {
+  box-shadow: none;
+}
+img {
+  border-radius: 50%;
 }
 </style>

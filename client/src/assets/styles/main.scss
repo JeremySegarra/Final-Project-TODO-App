@@ -1,0 +1,22 @@
+$grow: all 0.2s ease-in-out;
+$trans: scale(1.1);
+
+body {
+  /* background-color: #aed6f1; */
+  background-image: url("/assets/pawel-czerwinski-SoB70WFVWGU-unsplash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.brand:hover {
+  transition: $grow;
+  transform: $trans;
+}
+.login-brand:hover {
+  transition: $grow;
+  transform: $trans;
+}
+.signup-brand:hover {
+  transition: $grow;
+  transform: $trans;
+}

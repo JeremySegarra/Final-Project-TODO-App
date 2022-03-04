@@ -1,9 +1,15 @@
 <template>
   <div class="navbar-menu" :class="display" id="nav-links">
     <div class="navbar-start">
-      <a href="#" class="navbar-item"><strong>Home</strong></a>
-      <a href="#" class="navbar-item"><strong>To Do</strong></a>
-      <a href="#" class="navbar-item"><strong>Budget</strong></a>
+      <RouterLink to="/home" class="navbar-item"
+        ><strong>Home</strong></RouterLink
+      >
+      <RouterLink to="/todo" class="navbar-item"
+        ><strong>To Do</strong></RouterLink
+      >
+      <RouterLink to="/budget" class="navbar-item"
+        ><strong>Budget</strong></RouterLink
+      >
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
@@ -17,6 +23,7 @@
 
 <script setup lang="ts">
 import BaseButton from "../UI/BaseButton.vue";
+import { RouterLink } from "vue-router";
 
 const props = defineProps({ display: String });
 </script>

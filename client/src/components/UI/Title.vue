@@ -10,4 +10,7 @@ h1 {
   font-weight: 800;
   font-size: 3rem;
 }
+.section {
+  padding-top: 0;
+}
 </style>
