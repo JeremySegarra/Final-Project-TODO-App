@@ -4,7 +4,7 @@ import { RouterLink } from "vue-router";
 
 <template>
   <div class="section">
-    <p><strong>Sign Up Using</strong></p>
+    <p><strong>Sign In Using</strong></p>
     <button class="button google-brand brand">
       <i class="fa-brands fa-google"></i>
     </button>

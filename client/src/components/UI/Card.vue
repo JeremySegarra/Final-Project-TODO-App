@@ -8,4 +8,8 @@
   </div>
 </template>
 
-<style></style>
+<style>
+.card {
+  background-color: #f7f9f9;
+}
+</style>

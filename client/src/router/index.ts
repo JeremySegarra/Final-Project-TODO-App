@@ -21,6 +21,9 @@ const router = createRouter({
 });
 
 // router.beforeEach((to, from) => {
+//   console.log("Im to: ", to);
+//   console.log("Im from: ", from);
+
 //   //list of paths that require login!
 //   if (["/messages"].includes(to.path)) {
 //     if (!session.user) {
