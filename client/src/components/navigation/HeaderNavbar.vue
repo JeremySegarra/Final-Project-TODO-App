@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-light has-shadow">
+  <nav class="navbar is-light">
     <div class="navbar-brand">
       <a class="navbar-item">
         <img
@@ -40,9 +40,7 @@ function showLinks() {
 .navbar.is-light {
   background-color: #aed6f1;
 }
-.navbar.has-shadow {
-  box-shadow: none;
-}
+
 img {
   border-radius: 50%;
 }

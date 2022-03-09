@@ -10,7 +10,7 @@ import Slider from "../components/UI/carousel/Slider.vue";
 
 <style scoped>
 .container {
-  max-height: 50%;
+  max-height: 40%;
   height: calc(100vh - 96px);
   width: 100%;
 }

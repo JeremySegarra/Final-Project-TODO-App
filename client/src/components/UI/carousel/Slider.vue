@@ -13,7 +13,7 @@ import "../../../assets/styles/style.css";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 
-const images = reactive([
+const images = [
   "/assets/thomas-bormans-pcpsVsyFp_s-unsplash.jpg",
   "/assets/kelly-sikkema-6aY-6B3MiZ4-unsplash.jpg",
   "/assets/brett-jordan-MwkDKpOQmGc-unsplash.jpg",
@@ -22,7 +22,7 @@ const images = reactive([
   "/assets/kelly-sikkema-6aY-6B3MiZ4-unsplash.jpg",
   "/assets/towfiqu-barbhuiya-0ITvgXAU5Oo-unsplash.jpg",
   "/assets/towfiqu-barbhuiya-jpqyfK7GB4w-unsplash.jpg",
-]);
+];
 
 const modules = reactive([Autoplay, Pagination, Navigation]);
 </script>
