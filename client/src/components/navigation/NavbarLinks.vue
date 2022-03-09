@@ -14,7 +14,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <BaseButton>Logout</BaseButton>
+          <RouterLink to="/" class="button is-primary">Logout</RouterLink>
         </div>
       </div>
     </div>

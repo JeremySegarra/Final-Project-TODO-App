@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <h1 class="title">Login</h1>
+    <h1 class="title"><slot></slot></h1>
   </div>
 </template>
 
