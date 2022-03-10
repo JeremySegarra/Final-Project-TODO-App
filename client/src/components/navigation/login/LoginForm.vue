@@ -1,8 +1,26 @@
+<script setup lang="ts">
+import { LoginStore } from "../../../store/login-session";
+import { ref } from "vue";
+
+const loginStore = LoginStore();
+const username = ref("");
+const password = ref("");
+
+function login() {
+  loginStore.Login(username.value, password.value);
+}
+</script>
+
 <template>
   <div class="field">
     <p><strong>Username</strong></p>
     <p class="control has-icons-left has-icons-right">
-      <input class="input" type="email" placeholder="Type your username" />
+      <input
+        class="input"
+        type="email"
+        placeholder="Type your username"
+        v-model="username"
+      />
       <span class="icon is-small is-left">
         <i class="fas fa-envelope"></i>
       </span>
@@ -16,7 +34,12 @@
   <div class="field">
     <p><strong>Password</strong></p>
     <p class="control has-icons-left">
-      <input class="input" type="password" placeholder="Type your password" />
+      <input
+        class="input"
+        type="password"
+        placeholder="Type your password"
+        v-model="password"
+      />
       <span class="icon is-small is-left">
         <i class="fas fa-lock"></i>
       </span>
@@ -30,7 +53,10 @@
   <div class="field">
     <div class="section">
       <p class="control">
-        <button class="button is-info is-fullwidth is-rounded login-brand">
+        <button
+          class="button is-info is-fullwidth is-rounded login-brand"
+          @click="login"
+        >
           Login
         </button>
       </p>

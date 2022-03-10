@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+// import session from "../models/session";
+import { LoginStore } from "../store/login-session";
 
 import Home from "../pages/Home.vue";
 import Login from "../pages/Login.vue";
@@ -20,16 +22,15 @@ const router = createRouter({
   linkActiveClass: "is-active",
 });
 
-// router.beforeEach((to, from) => {
-//   console.log("Im to: ", to);
-//   console.log("Im from: ", from);
-
-//   //list of paths that require login!
-//   if (["/messages"].includes(to.path)) {
-//     if (!session.user) {
-//       return "/login";
-//     }
-//   }
-// });
+router.beforeEach((to, from) => {
+  //list of paths that require login!
+  const protectedUrls = ["/home", "/todo", "/budget"];
+  const loginSession = LoginStore();
+  if (protectedUrls.includes(to.path)) {
+    if (!loginSession.$state.session.user) {
+      return "/";
+    }
+  }
+});
 
 export default router;

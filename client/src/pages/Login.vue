@@ -2,6 +2,10 @@
   <div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
       <Title>Login</Title>
+      <p>
+        side note professor: please sign up in order to log in functionality
+        works
+      </p>
       <Card>
         <LoginForm></LoginForm>
         <LoginBrands></LoginBrands>

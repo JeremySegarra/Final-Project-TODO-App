@@ -1,3 +1,11 @@
+<script setup lang="ts">
+// For Username class conditionally add is-success class for when the username is available also conditionally render commented segments
+// For Email do the same except class is is-danger
+import { RouterLink } from "vue-router";
+import { userCounter } from "../../../store/user";
+
+const counter = userCounter();
+</script>
 <template>
   <form @submit.prevent="">
     <div class="field">
@@ -115,15 +123,6 @@
     </div>
   </form>
 </template>
-
-<script setup lang="ts">
-// For Username class conditionally add is-success class for when the username is available also conditionally render commented segments
-// For Email do the same except class is is-danger
-import { RouterLink } from "vue-router";
-import { userCounter } from "../../../store/user";
-
-const counter = userCounter();
-</script>
 
 <style scoped>
 .button {

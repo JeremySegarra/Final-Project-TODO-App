@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import BaseButton from "../UI/BaseButton.vue";
+import { RouterLink } from "vue-router";
+import { LoginStore } from "../../store/login-session";
+
+const loginStore = LoginStore();
+
+function logout() {
+  loginStore.Logout();
+}
+
+const props = defineProps({ display: String });
+</script>
 <template>
   <div class="navbar-menu" :class="display" id="nav-links">
     <div class="navbar-start">
@@ -11,22 +24,15 @@
         ><strong>Budget</strong></RouterLink
       >
     </div>
-    <div class="navbar-end">
+    <div v-if="loginStore.isLoggedIn" class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <RouterLink to="/" class="button is-primary">Logout</RouterLink>
+          <a class="button is-primary" @click="logout">Logout</a>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import BaseButton from "../UI/BaseButton.vue";
-import { RouterLink } from "vue-router";
-
-const props = defineProps({ display: String });
-</script>
 
 <style scoped>
 #nav-links .navbar-start .navbar-item:hover,
