@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import "bulma";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./assets/styles/main.scss";
+import { createPinia } from "pinia";
 
 import Footer from "./components/UI/Footer.vue";
 import HeaderNavbar from "./components/navigation/HeaderNavbar.vue";
@@ -15,5 +16,6 @@ app.component("Footer", Footer);
 app.component("HeaderNavbar", HeaderNavbar);
 app.component("Card", Card);
 app.use(router);
+app.use(createPinia());
 
 app.mount("#app");
