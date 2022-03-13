@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import { list } from "../models/user";
 import * as loggedUser from "../store/login-session";
+import { currentDate } from "./current-date";
 
 export const userCounter = defineStore("counter", {
   state: () => ({
     counter: 0,
     list: list,
+    date: currentDate(),
   }),
   actions: {
     addOne() {
@@ -30,23 +32,20 @@ export const userCounter = defineStore("counter", {
       //update function for backend post request to send data
     },
     addMessage(sub: string, text: string) {
-      console.warn("I am in user store and addmessage");
-
       const loginStore = loggedUser.LoginStore();
-      const currentUser = loginStore.session.user?.username;
-      const foundUser = this.list.find((u) => u.username === currentUser);
-      // console.log(currentUser);
-      // console.log(username);
+      const sessionUser = loginStore.session.user?.username;
+      const loggedInUserData = this.list.find(
+        (u) => u.username === sessionUser
+      );
 
-      // console.log(foundUser);
-
-      foundUser?.myMessages.push({
+      loggedInUserData?.myMessages.push({
         isActive: false,
         completed: false,
         subject: sub,
         message: text,
-        reciever: "this is a test",
-        sender: currentUser,
+        reciever: loggedInUserData.username,
+        sender: sessionUser,
+        date: this.date,
       });
     },
     deleteMessage(index: number) {
@@ -86,10 +85,10 @@ export const userCounter = defineStore("counter", {
         message: text,
         reciever: sendTo.username,
         sender: sessionUser,
+        date: this.date,
       });
 
       //populates the currently logged in users sent messages
-      //fix this so it does not send the message but puts it in personal sent messages
       loggedInUserData?.sentMessages.push({
         isActive: false,
         completed: false,
@@ -97,6 +96,7 @@ export const userCounter = defineStore("counter", {
         message: text,
         reciever: loggedInUserData.username,
         sender: sessionUser,
+        date: this.date,
       });
     },
   },

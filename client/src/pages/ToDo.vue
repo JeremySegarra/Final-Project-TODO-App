@@ -11,8 +11,8 @@ const loginStore = LoginStore();
 const store = userCounter();
 
 //This is getting me the exact users recieved messages
-const currentUser = loginStore.$state.session.user?.username;
-const foundUser = store.$state.list.find((u) => u.username === currentUser);
+const sessionUser = loginStore.$state.session.user?.username;
+const foundUser = store.$state.list.find((u) => u.username === sessionUser);
 
 //These three variables are getting the exact users personal messages/sent/recieved
 const myMessage = foundUser?.myMessages;
@@ -108,6 +108,7 @@ function toggle(payload: string) {
         :key="message"
         :message="message.message"
         :subject="message.subject"
+        :date="message.date"
         :index="index"
       ></MyMessage>
       <RecievedMessages
@@ -116,6 +117,7 @@ function toggle(payload: string) {
         :key="message"
         :message="message.message"
         :subject="message.subject"
+        :date="message.date"
         :index="index"
       ></RecievedMessages>
       <SentMessages
@@ -124,6 +126,7 @@ function toggle(payload: string) {
         :key="message"
         :message="message.message"
         :subject="message.subject"
+        :date="message.date"
         :index="index"
       ></SentMessages>
     </div>
