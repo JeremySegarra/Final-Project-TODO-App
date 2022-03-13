@@ -1,46 +1,33 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { LoginStore } from "../store/login-session";
+import { userCounter } from "../store/user";
 
 import MyMessage from "../components/messages/MyMessages.vue";
-import { MessagesStore } from "../models/messages";
 import RecievedMessages from "../components/messages/RecievedMessages.vue";
 import SentMessages from "../components/messages/SentMessages.vue";
-import { list } from "../models/user";
-import { LoginStore } from "../store/login-session";
-//might have to pass state up to this component for is active class on tabs in order to use v-if on what to see
-const messageStore = MessagesStore();
+
 const loginStore = LoginStore();
+const store = userCounter();
 
 //This is getting me the exact users recieved messages
-const usersList = list;
 const currentUser = loginStore.$state.session.user?.username;
-const user = usersList.find((u) => u.username === currentUser);
-const recievedMessages = user?.recievedMessages;
-console.log("I am recievedMessages: ");
-console.table(recievedMessages);
+const foundUser = store.$state.list.find((u) => u.username === currentUser);
 
-//This is getting me the global my messages i need the exact user
-const myMessage = user?.myMessages;
-console.log("This is my Message below");
-console.table(myMessage);
+//These three variables are getting the exact users personal messages/sent/recieved
+const myMessage = foundUser?.myMessages;
+const sentList = foundUser?.sentMessages;
+const recievedMessages = foundUser?.recievedMessages;
 
-//This is accessing the global my list not what i want
-// const myList = messageStore.$state.myMessages;
-// console.log("This is my List");
-// console.table(myList);
-
-//This is accessing the users sent messages list
-const sentList = user?.sentMessages;
-// const sentList = messageStore.$state.sentMessages;
-
+//These variables Handle the toggleable buttons to view specific lists of messages
 const activeList = ref("");
 const activeRecieved = ref("");
 const activeSent = ref("");
-
 const isList = ref(false);
 const isRecieved = ref(false);
 const isSent = ref(false);
 
+//This is the toggle function for myMessages/Recieved/Sent
 function toggle(payload: string) {
   if (payload === "my-list") {
     isList.value = !isList.value;
@@ -118,7 +105,7 @@ function toggle(payload: string) {
       <MyMessage
         v-if="isList"
         v-for="(message, index) in myMessage"
-        :key="message.username"
+        :key="message"
         :message="message.message"
         :subject="message.subject"
         :index="index"
@@ -126,7 +113,7 @@ function toggle(payload: string) {
       <RecievedMessages
         v-if="isRecieved"
         v-for="(message, index) in recievedMessages"
-        :key="message.message"
+        :key="message"
         :message="message.message"
         :subject="message.subject"
         :index="index"
@@ -134,8 +121,9 @@ function toggle(payload: string) {
       <SentMessages
         v-if="isSent"
         v-for="(message, index) in sentList"
-        :key="message.message"
-        :message="message"
+        :key="message"
+        :message="message.message"
+        :subject="message.subject"
         :index="index"
       ></SentMessages>
     </div>

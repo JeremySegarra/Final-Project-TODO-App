@@ -13,14 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import { MessagesStore } from "../../models/messages";
-import * as loggedUser from "../../store/login-session";
-const messageStore = MessagesStore();
-
+import { userCounter } from "../../store/user";
+const store = userCounter();
 function removeMessage(index: number) {
-  // console.log("I am in removeMessage here is the username: ", currentUser);
-
-  messageStore.deleteMessage(index);
+  store.deleteMessage(index);
 }
 
 const props = defineProps(["message", "subject", "index"]);

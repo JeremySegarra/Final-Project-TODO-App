@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import { MessagesStore } from "../../models/messages";
-
-const messageStore = MessagesStore();
-
-function removeMessage(index: number) {
-  // messageStore.deleteMessage(index);
-}
+function removeMessage(index: number) {}
 
 const props = defineProps(["message", "subject", "index"]);
 </script>

@@ -60,7 +60,7 @@
                 <div class="field is-narrow">
                   <div class="control">
                     <div class="select is-fullwidth">
-                      <select v-model="username">
+                      <select v-model="usernameToSend">
                         <option
                           v-for="(user, index) in list"
                           :key="user.username"
@@ -81,36 +81,22 @@
 </template>
 
 <script setup lang="ts">
-import { MessagesStore } from "../../models/messages";
 import { ref } from "vue";
 import { list } from "../../models/user";
-import * as loggedUser from "../../store/login-session";
-
-const messageStore = MessagesStore();
+import { userCounter } from "../../store/user";
 
 //need to updated the list to be a friends list for current users
 const subject = ref("");
 const message = ref("");
-const username = ref("");
+const usernameToSend = ref("");
 
-//Need to get the current user in order to create a personal message
-//I am only reading the username from the options menu dropdown that is used for Send
-const loginStore = loggedUser.LoginStore();
-const currentUser = loginStore.session.user?.username;
-
+const store = userCounter();
 function createMessage(subject: string, message: string) {
-  // console.log("I am in createMessage the username im passing is:", currentUser);
-
-  messageStore.addMessage(subject, message, currentUser);
+  store.addMessage(subject, message);
   reset();
 }
-
 function send(subject: string, message: string) {
-  // console.log("I am in Send: ", username.value);
-
-  messageStore.sendMessage(subject, message, username.value);
-
-  reset();
+  store.sendMessage(subject, message, usernameToSend.value);
 }
 
 function reset() {
