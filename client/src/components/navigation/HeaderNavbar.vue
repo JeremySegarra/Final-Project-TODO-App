@@ -1,21 +1,3 @@
-<template>
-  <nav class="navbar is-light">
-    <div class="navbar-brand">
-      <a class="navbar-item">
-        <img
-          src="/assets/wellness-logo.png"
-          alt="image of happy person"
-          style="max-height: 80px"
-          width="100"
-        />
-      </a>
-      <NavbarBurger @click="showLinks"></NavbarBurger>
-    </div>
-
-    <NavbarLinks :clicked="isClicked" :display="display"></NavbarLinks>
-  </nav>
-</template>
-
 <script setup lang="ts">
 import NavbarLinks from "./NavbarLinks.vue";
 import NavbarBurger from "./NavbarBurger.vue";
@@ -35,6 +17,24 @@ function showLinks() {
   }
 }
 </script>
+
+<template>
+  <nav class="navbar is-light">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <img
+          src="/assets/wellness-logo.png"
+          alt="image of happy person"
+          style="max-height: 80px"
+          width="100"
+        />
+      </a>
+      <NavbarBurger @click="showLinks"></NavbarBurger>
+    </div>
+
+    <NavbarLinks :clicked="isClicked" :display="display"></NavbarLinks>
+  </nav>
+</template>
 
 <style scoped>
 .navbar.is-light {

@@ -19,10 +19,13 @@ export const userCounter = defineStore("counter", {
         email: "",
         password: "",
         verifypass: "",
+        recievedMessages: [],
+        myMessages: [],
+        sentMessages: [],
         id: index + 1,
       });
       this.addOne();
-      console.log(this.list);
+
       //update function for backend post request to send data
     },
   },

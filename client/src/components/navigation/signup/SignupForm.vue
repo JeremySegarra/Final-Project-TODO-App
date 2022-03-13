@@ -6,6 +6,7 @@ import { userCounter } from "../../../store/user";
 
 const counter = userCounter();
 </script>
+
 <template>
   <form @submit.prevent="">
     <div class="field">

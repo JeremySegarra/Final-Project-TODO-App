@@ -8,6 +8,9 @@ export interface User {
   email: string;
   password: string;
   verifypass: string;
+  recievedMessages: Array<any>;
+  myMessages: Array<any>;
+  sentMessages: Array<any>;
   id: number;
 }
 
@@ -19,6 +22,9 @@ export const list: User[] = [
     email: "",
     password: "",
     verifypass: "",
+    recievedMessages: [],
+    myMessages: [],
+    sentMessages: [],
     id: 0,
   },
 ];

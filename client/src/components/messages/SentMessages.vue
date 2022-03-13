@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { MessagesStore } from "../../models/messages";
+
+const messageStore = MessagesStore();
+
+function removeMessage(index: number) {
+  // messageStore.deleteMessage(index);
+}
+
+const props = defineProps(["message", "index"]);
+</script>
+
 <template>
   <article class="message is-info">
     <div class="message-header">
@@ -11,17 +23,5 @@
     <div class="message-body">{{ props.message.message }}</div>
   </article>
 </template>
-
-<script setup lang="ts">
-import { MessagesStore } from "../../models/messages";
-
-const messageStore = MessagesStore();
-
-function removeMessage(index: number) {
-  messageStore.deleteMessage(index);
-}
-
-const props = defineProps(["message", "index"]);
-</script>
 
 <style scoped></style>
