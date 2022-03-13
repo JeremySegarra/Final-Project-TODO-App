@@ -1,5 +1,9 @@
 <script setup lang="ts">
-function removeMessage(index: number) {}
+import { userCounter } from "../../store/user";
+const store = userCounter();
+function removeMessage(index: number) {
+  store.deleteMySentMessage(index);
+}
 
 const props = defineProps(["message", "subject", "index"]);
 </script>

@@ -97,6 +97,7 @@ function createMessage(subject: string, message: string) {
 }
 function send(subject: string, message: string) {
   store.sendMessage(subject, message, usernameToSend.value);
+  reset();
 }
 
 function reset() {

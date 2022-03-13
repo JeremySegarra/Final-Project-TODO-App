@@ -56,6 +56,20 @@ export const userCounter = defineStore("counter", {
 
       foundUser?.myMessages.splice(index, 1);
     },
+    deleteMySentMessage(index: number) {
+      const loginStore = loggedUser.LoginStore();
+      const currentUser = loginStore.session.user?.username;
+      const foundUser = this.list.find((u) => u.username === currentUser);
+
+      foundUser?.sentMessages.splice(index, 1);
+    },
+    deleteMyRecievedMessage(index: number) {
+      const loginStore = loggedUser.LoginStore();
+      const currentUser = loginStore.session.user?.username;
+      const foundUser = this.list.find((u) => u.username === currentUser);
+
+      foundUser?.recievedMessages.splice(index, 1);
+    },
     sendMessage(sub: string, text: string, usernameToSend: string) {
       const loginStore = loggedUser.LoginStore();
       const sessionUser = loginStore.session.user?.username;
