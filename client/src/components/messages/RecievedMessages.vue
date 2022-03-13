@@ -2,7 +2,14 @@
 import { userCounter } from "../../store/user";
 import { ref } from "vue";
 
-const props = defineProps(["message", "subject", "index", "date"]);
+const props = defineProps([
+  "message",
+  "subject",
+  "index",
+  "date",
+  "reciever",
+  "sender",
+]);
 const completed = ref(false);
 
 const store = userCounter();
@@ -18,8 +25,11 @@ function setCompleted() {
 <template>
   <article class="message" :class="completed ? 'is-primary' : 'is-info'">
     <div class="message-header">
-      <p>{{ props.subject }}</p>
-      <p>{{ props.date }}</p>
+      <p>
+        <strong>Title:</strong> {{ props.subject }} <br />
+        <strong>Created By:</strong> {{ props.sender }} <br />
+        <strong>Date:</strong> {{ props.date }}
+      </p>
       <label class="checkbox">
         <input type="checkbox" @click="setCompleted" />
         Completed
@@ -34,4 +44,8 @@ function setCompleted() {
   </article>
 </template>
 
-<style scoped></style>
+<style scoped>
+p strong {
+  color: black;
+}
+</style>

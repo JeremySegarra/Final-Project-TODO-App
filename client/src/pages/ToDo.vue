@@ -1,23 +1,16 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { LoginStore } from "../store/login-session";
-import { userCounter } from "../store/user";
+import { loggedInUser } from "../store/current-login-user";
 
 import MyMessage from "../components/messages/MyMessages.vue";
 import RecievedMessages from "../components/messages/RecievedMessages.vue";
 import SentMessages from "../components/messages/SentMessages.vue";
 
-const loginStore = LoginStore();
-const store = userCounter();
-
-//This is getting me the exact users recieved messages
-const sessionUser = loginStore.$state.session.user?.username;
-const foundUser = store.$state.list.find((u) => u.username === sessionUser);
-
 //These three variables are getting the exact users personal messages/sent/recieved
-const myMessage = foundUser?.myMessages;
-const sentList = foundUser?.sentMessages;
-const recievedMessages = foundUser?.recievedMessages;
+const loggedInUserData = loggedInUser();
+const myMessage = loggedInUserData?.myMessages;
+const sentList = loggedInUserData?.sentMessages;
+const recievedMessages = loggedInUserData?.recievedMessages;
 
 //These variables Handle the toggleable buttons to view specific lists of messages
 const activeList = ref("");
@@ -108,6 +101,8 @@ function toggle(payload: string) {
         :key="message"
         :message="message.message"
         :subject="message.subject"
+        :reciever="message.reciever"
+        :sender="message.sender"
         :date="message.date"
         :index="index"
       ></MyMessage>
@@ -117,6 +112,8 @@ function toggle(payload: string) {
         :key="message"
         :message="message.message"
         :subject="message.subject"
+        :reciever="message.reciever"
+        :sender="message.sender"
         :date="message.date"
         :index="index"
       ></RecievedMessages>
@@ -126,6 +123,8 @@ function toggle(payload: string) {
         :key="message"
         :message="message.message"
         :subject="message.subject"
+        :reciever="message.reciever"
+        :sender="message.sender"
         :date="message.date"
         :index="index"
       ></SentMessages>

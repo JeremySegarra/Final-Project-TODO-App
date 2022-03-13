@@ -1,5 +1,32 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import { list } from "../../models/user";
+import { userCounter } from "../../store/user";
+
+//need to updated the list to be a friends list for current users
+const subject = ref("");
+const message = ref("");
+const usernameToSend = ref("");
+
+const store = userCounter();
+function createMessage(subject: string, message: string) {
+  store.addMessage(subject, message);
+  reset();
+}
+function send(subject: string, message: string) {
+  store.sendMessage(subject, message, usernameToSend.value);
+  reset();
+}
+
+function reset() {
+  subject.value = "";
+  message.value = "";
+}
+</script>
+
 <template>
   <div class="section">
+    <p><strong>Create a personal message or send to a friend</strong></p>
     <div class="field is-horizontal">
       <div class="field-label is-small">
         <label class="label">Subject</label>
@@ -54,7 +81,8 @@
             </button>
             <div class="field is-horizontal">
               <div class="field-label is-normal">
-                <label class="label">Friends List</label>
+                <label class="label">Current Users Dropdown</label>(will be
+                friends list in future)
               </div>
               <div class="field-body">
                 <div class="field is-narrow">
@@ -79,31 +107,5 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-import { list } from "../../models/user";
-import { userCounter } from "../../store/user";
-
-//need to updated the list to be a friends list for current users
-const subject = ref("");
-const message = ref("");
-const usernameToSend = ref("");
-
-const store = userCounter();
-function createMessage(subject: string, message: string) {
-  store.addMessage(subject, message);
-  reset();
-}
-function send(subject: string, message: string) {
-  store.sendMessage(subject, message, usernameToSend.value);
-  reset();
-}
-
-function reset() {
-  subject.value = "";
-  message.value = "";
-}
-</script>
 
 <style scoped></style>

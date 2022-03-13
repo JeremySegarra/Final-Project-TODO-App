@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { list } from "../models/user";
-import * as loggedUser from "../store/login-session";
 import { currentDate } from "./current-date";
+import { loggedInUser } from "./current-login-user";
 
 export const userCounter = defineStore("counter", {
   state: () => ({
@@ -9,6 +9,7 @@ export const userCounter = defineStore("counter", {
     list: list,
     date: currentDate(),
   }),
+
   actions: {
     addOne() {
       this.counter++;
@@ -32,11 +33,7 @@ export const userCounter = defineStore("counter", {
       //update function for backend post request to send data
     },
     addMessage(sub: string, text: string) {
-      const loginStore = loggedUser.LoginStore();
-      const sessionUser = loginStore.session.user?.username;
-      const loggedInUserData = this.list.find(
-        (u) => u.username === sessionUser
-      );
+      const loggedInUserData = loggedInUser();
 
       loggedInUserData?.myMessages.push({
         isActive: false,
@@ -44,37 +41,28 @@ export const userCounter = defineStore("counter", {
         subject: sub,
         message: text,
         reciever: loggedInUserData.username,
-        sender: sessionUser,
+        sender: loggedInUserData.username,
         date: this.date,
       });
     },
     deleteMessage(index: number) {
-      const loginStore = loggedUser.LoginStore();
-      const currentUser = loginStore.session.user?.username;
-      const foundUser = this.list.find((u) => u.username === currentUser);
+      const loggedInUserData = loggedInUser();
 
-      foundUser?.myMessages.splice(index, 1);
+      loggedInUserData?.myMessages.splice(index, 1);
     },
     deleteMySentMessage(index: number) {
-      const loginStore = loggedUser.LoginStore();
-      const currentUser = loginStore.session.user?.username;
-      const foundUser = this.list.find((u) => u.username === currentUser);
+      const loggedInUserData = loggedInUser();
 
-      foundUser?.sentMessages.splice(index, 1);
+      loggedInUserData?.sentMessages.splice(index, 1);
     },
     deleteMyRecievedMessage(index: number) {
-      const loginStore = loggedUser.LoginStore();
-      const currentUser = loginStore.session.user?.username;
-      const foundUser = this.list.find((u) => u.username === currentUser);
+      const loggedInUserData = loggedInUser();
 
-      foundUser?.recievedMessages.splice(index, 1);
+      loggedInUserData?.recievedMessages.splice(index, 1);
     },
     sendMessage(sub: string, text: string, usernameToSend: string) {
-      const loginStore = loggedUser.LoginStore();
-      const sessionUser = loginStore.session.user?.username;
-      const loggedInUserData = this.list.find(
-        (u) => u.username === sessionUser
-      );
+      const loggedInUserData = loggedInUser();
+
       const sendTo = this.list.find((u) => u.username === usernameToSend);
 
       //populates the users recived we want to send a message too
@@ -84,7 +72,7 @@ export const userCounter = defineStore("counter", {
         subject: sub,
         message: text,
         reciever: sendTo.username,
-        sender: sessionUser,
+        sender: loggedInUserData?.username,
         date: this.date,
       });
 
@@ -94,8 +82,8 @@ export const userCounter = defineStore("counter", {
         completed: false,
         subject: sub,
         message: text,
-        reciever: loggedInUserData.username,
-        sender: sessionUser,
+        reciever: sendTo?.username,
+        sender: loggedInUserData?.username,
         date: this.date,
       });
     },

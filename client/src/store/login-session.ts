@@ -24,11 +24,6 @@ export const LoginStore = defineStore("login", {
       }
 
       this.session.user = user;
-      // console.log("I am users list!");
-      // console.table(this.list);
-
-      console.log("I am the current user");
-      console.table(this.session.user);
 
       router.push("/home");
     },
