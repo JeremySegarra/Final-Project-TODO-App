@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 // import session from "../models/session";
-import { LoginStore } from "../store/login-session";
+import { LoginStore } from "../models/store/login-session";
 
 import Home from "../pages/Home.vue";
 import Login from "../pages/Login.vue";

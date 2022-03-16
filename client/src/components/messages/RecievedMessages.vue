@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { userCounter } from "../../store/user";
+import { userCounter } from "../../models/store/user";
 import { ref } from "vue";
 
 const props = defineProps([

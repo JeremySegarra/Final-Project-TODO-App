@@ -4,8 +4,16 @@ import Footer from "./components/UI/Footer.vue";
 
 <template>
   <HeaderNavbar></HeaderNavbar>
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <transition
+      mode="out-in"
+      enter-active-class="animate__animated animate__fadeIn animate__faster"
+      leave-active-class="animate__animated animate__fadeOut animate__faster"
+    >
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
   <!-- <Footer></Footer> -->
 </template>
 
-<style></style>
+<style scoped></style>

@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import "bulma";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./assets/styles/main.scss";
+import "animate.css";
 import { createPinia } from "pinia";
 
 import Footer from "./components/UI/Footer.vue";

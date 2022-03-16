@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { list } from "../models/user";
+import { list } from "../user";
 import { currentDate } from "./current-date";
 import { loggedInUser } from "./current-login-user";
 

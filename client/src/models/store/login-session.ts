@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import * as users from "../models/user";
-import router from "../router";
+import * as users from "../user";
+import router from "../../router";
 
 export const LoginStore = defineStore("login", {
   state: () => ({

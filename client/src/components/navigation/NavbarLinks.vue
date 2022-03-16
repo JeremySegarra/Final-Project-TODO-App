@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BaseButton from "../UI/BaseButton.vue";
 import { RouterLink } from "vue-router";
-import { LoginStore } from "../../store/login-session";
+import { LoginStore } from "../../models/store/login-session";
 
 const loginStore = LoginStore();
 
@@ -42,22 +42,22 @@ const props = defineProps({ display: String });
 }
 
 .modal-enter-active {
-  animation: link 0.3s ease-out;
+  animation: link 0.5s ease-out;
 }
 
 .navbar-menu.is-active {
-  animation: modal 0.3s ease-in;
+  animation: modal 0.5s ease-in;
 }
 
 @keyframes modal {
   from {
     opacity: 0;
-    transform: translateY(-50px) scale(0.9);
+    /* transform: translateY(-50px) scale(0.9); */
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    /* transform: translateY(0) scale(1); */
   }
 }
 </style>

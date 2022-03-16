@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { list } from "../../models/user";
-import { userCounter } from "../../store/user";
+import { userCounter } from "../../models/store/user";
 
 //need to updated the list to be a friends list for current users
 const subject = ref("");

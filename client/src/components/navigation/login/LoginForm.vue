@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LoginStore } from "../../../store/login-session";
+import { LoginStore } from "../../../models/store/login-session";
 import { ref } from "vue";
 
 const loginStore = LoginStore();
