@@ -14,20 +14,30 @@ export const userCounter = defineStore("counter", {
     addOne() {
       this.counter++;
     },
-    setNewUser(index: number) {
+    setNewUser(
+      firstname: string,
+      lastname: string,
+      username: string,
+      email: string,
+      password: string,
+      verify: string,
+      index: number
+    ) {
       //try not to add an empty user just add 1 at a time fix tomorrow
+
       this.list.push({
-        firstName: "",
-        lastName: "",
-        username: "",
-        email: "",
-        password: "",
-        verifypass: "",
+        firstName: firstname,
+        lastName: lastname,
+        username: username,
+        email: email,
+        password: password,
+        verifypass: verify,
         recievedMessages: [],
         myMessages: [],
         sentMessages: [],
         id: index + 1,
       });
+      console.table(this.list);
       this.addOne();
 
       //update function for backend post request to send data

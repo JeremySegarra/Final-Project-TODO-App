@@ -16,12 +16,12 @@ export interface User {
 
 export const list: User[] = [
   {
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: "",
-    verifypass: "",
+    firstName: "administrator",
+    lastName: "admin",
+    username: "admin",
+    email: "admin",
+    password: "k",
+    verifypass: "k",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],

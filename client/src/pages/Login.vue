@@ -3,8 +3,9 @@
     <div class="column is-half is-offset-one-quarter">
       <Title>Login</Title>
       <p>
-        side note professor: please sign up in order to log in functionality
-        works
+        <strong>Note To Professor:</strong> to easily log in without creating an
+        account use admin. <strong>Username:</strong> admin,
+        <strong>Password:</strong> k
       </p>
       <Card>
         <LoginForm></LoginForm>
