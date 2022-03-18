@@ -374,7 +374,7 @@ function submitForm() {
       <p v-if="!password.passwordIsValid" class="help is-danger">
         Password must contain <br/> 
         <ul>
-          <li v-if="!password.length">10 to 16 characters</li>
+          <li v-if="!password.length">8 to 16 characters</li>
           <li v-if="!password.uppercase">at least 1 uppercase character</li>
           <li v-if="!password.lowercase">at least 1 lowercase character</li>
           <li v-if="!password.symbol">at least 1 symbol</li>
