@@ -32,6 +32,12 @@ const password = reactive({
   verify: "",
   passwordIsValid: true,
   verifyIsValid: true,
+  whitespace: false,
+  length: false,
+  uppercase: false,
+  lowercase: false,
+  symbol: false,
+  digit:false,
 });
 
 function validateFirstName() {
@@ -85,15 +91,11 @@ function validateEmail() {
   }
 }
 function validatePassword() {
-  
-  formIsValid.value = true;
-  password.passwordIsValid = true;
 
-  const whiteSpace = /[ ]+/gm;
   const upperCase = /(?=.*[A-Z])/;
   const lowerCase = /^(?=.*[a-z])/;
   const oneDigit = /^(?=.*[0-9])/;
-  const length = /^.{10,16}$/;
+  const length = /^.{8,16}$/;
   const oneSymbol = /^(?=.*[~!@#$%^&*()--+={}\[\]|\\:;<>,.?/_₹])/;
   // const passwordValidator =
   //   /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{10,16}$/;
@@ -102,13 +104,49 @@ function validatePassword() {
     password.passwordIsValid = false;
     formIsValid.value = false;
   }
-  
-  //if the password does not contain 1 uppercase/lowercase/symbol/number/10-16characters length/no white spaces
-  // if (passwordValidator.test(password.value) === false) 
-  // {
-  //   formIsValid.value = false;
-  //   password.passwordIsValid = false;
-  // }
+  if(oneDigit.test(password.value)){
+    password.digit = true;
+  }
+  else{
+    password.digit = false;
+  }
+
+  if(upperCase.test(password.value)){
+    password.uppercase = true;
+  }
+  else{
+    password.uppercase = false;
+  }
+
+  if(lowerCase.test(password.value)){
+    password.lowercase = true;
+  }
+  else{
+    password.lowercase = false;
+  }
+
+  if(length.test(password.value)){
+    password.length = true;
+  }
+  else{
+    password.length = false;
+  }
+
+  if(oneSymbol.test(password.value)){
+    password.symbol = true;
+  }
+  else {
+    password.symbol = false;
+  }
+
+  if(password.digit && password.length && password.lowercase && password.uppercase && password.symbol){
+    formIsValid.value = true;
+    password.passwordIsValid = true;
+  }
+  else {
+    formIsValid.value = false;
+    password.passwordIsValid = false;
+  }
 }
 function validatePasswordVerify() {
   formIsValid.value = true;
@@ -336,18 +374,17 @@ function submitForm() {
       <p v-if="!password.passwordIsValid" class="help is-danger">
         Password must contain <br/> 
         <ul>
-          <li>no whitespace</li>
-          <li>10 to 16 characters</li>
-          <li>at least 1 uppercase character</li>
-          <li>at least 1 lowercase character</li>
-          <li>at least 1 symbol</li>
-          <li>at least 1 number</li>
+          <li v-if="!password.length">10 to 16 characters</li>
+          <li v-if="!password.uppercase">at least 1 uppercase character</li>
+          <li v-if="!password.lowercase">at least 1 lowercase character</li>
+          <li v-if="!password.symbol">at least 1 symbol</li>
+          <li v-if="!password.digit">at least 1 number</li>
         </ul>
       </p>
     </div>
     <div class="field">
       <label class="label">Verify Password</label>
-      <p class="control has-icons-left">
+      <div class="control has-icons-left">
         <input
           class="input"
           :class="password.verifyIsValid ? 'is-info' : 'is-danger'"
@@ -360,18 +397,13 @@ function submitForm() {
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
-      </p>
+      </div>
+      <p v-if="!password.verifyIsValid" class="help is-danger">
+        Password does not match</p>
     </div>
 
     <div class="field is-grouped-centered is-horizontal">
       <p class="control">
-        <!-- <RouterLink
-          class="button is-primary"
-          to="/"
-          @click="counter.setNewUser(counter.$state.counter, username.value)"
-        >
-          Submit
-        </RouterLink> -->
         <button class="button is-info" type="submit">Submit</button>
       </p>
       <p class="control">
