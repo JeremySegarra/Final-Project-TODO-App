@@ -56,7 +56,7 @@ function preventEyeBall(event: any) {
       <span
         class="icon is-small is-right"
         style="cursor: pointer"
-        @click="toggleEye"
+        @click.prevent="toggleEye"
         @mousedown="preventEyeBall"
         aria-hidden="true"
       >

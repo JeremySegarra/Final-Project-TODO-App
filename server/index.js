@@ -2,9 +2,6 @@ const express = require("express");
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
-const uri =
-  "mongodb+srv://jeremysegarra:noyrHG9sVC7bPjNz@cluster0.kcrn1.mongodb.net/Messanger-App?retryWrites=true&w=majority";
-
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
