@@ -3,14 +3,15 @@ import { userCounter } from "../../models/store/user";
 import { ref } from "vue";
 
 const store = userCounter();
-const props = defineProps([
-  "message",
-  "subject",
-  "index",
-  "date",
-  "reciever",
-  "sender",
-]);
+// const props = defineProps([
+//   "message",
+//   "subject",
+//   "index",
+//   "date",
+//   "reciever",
+//   "sender",
+// ]);
+const props = defineProps(["message", "list"]);
 
 const completed = ref(false);
 
@@ -27,9 +28,9 @@ function setCompleted() {
   <article class="message" :class="completed ? 'is-primary' : 'is-info'">
     <div class="message-header">
       <p>
-        <strong>Title:</strong> {{ props.subject }} <br />
-        <strong>Created By:</strong> {{ props.sender }} <br />
-        <strong>Date:</strong> {{ props.date }}
+        <strong>Title:</strong> {{ props.message.subject }} <br />
+        <strong>Created By:</strong> {{ props.message.sender }} <br />
+        <strong>Date:</strong> {{ props.message.date }}
       </p>
       <label class="checkbox">
         <input type="checkbox" @click="setCompleted" />
@@ -38,10 +39,10 @@ function setCompleted() {
       <button
         class="delete"
         aria-label="delete"
-        @click="removeMessage(props.index)"
+        @click="removeMessage(props.message.index)"
       ></button>
     </div>
-    <div class="message-body">{{ props.message }}</div>
+    <div class="message-body">{{ props.message.message }}</div>
   </article>
 </template>
 

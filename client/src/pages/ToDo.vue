@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { loggedInUser } from "../models/store/current-login-user";
 
 import MyMessage from "../components/messages/MyMessages.vue";
-import RecievedMessages from "../components/messages/RecievedMessages.vue";
-import SentMessages from "../components/messages/SentMessages.vue";
 
 //These three variables are getting the exact users personal messages/sent/recieved
 const loggedInUserData = loggedInUser();
@@ -12,55 +10,25 @@ const myMessage = loggedInUserData?.myMessages;
 const sentList = loggedInUserData?.sentMessages;
 const recievedMessages = loggedInUserData?.recievedMessages;
 
-//These variables Handle the toggleable buttons to view specific lists of messages
-const activeList = ref("");
-const activeRecieved = ref("");
-const activeSent = ref("");
-const isList = ref(false);
-const isRecieved = ref(false);
-const isSent = ref(false);
+//this is my default tab that should be active
+const currentTab = ref("my-list");
+
+const currentList = computed(() => {
+  switch (currentTab.value) {
+    case "my-list":
+      return myMessage;
+
+    case "recieved":
+      return recievedMessages;
+
+    case "sent":
+      return sentList;
+  }
+});
 
 //This is the toggle function for myMessages/Recieved/Sent
 function toggle(payload: string) {
-  if (payload === "my-list") {
-    isList.value = !isList.value;
-    isRecieved.value = false;
-    isSent.value = false;
-
-    if (isList.value) {
-      activeList.value = "is-active";
-      activeRecieved.value = "";
-      activeSent.value = "";
-    } else {
-      activeList.value = "";
-    }
-  }
-
-  if (payload === "recieved") {
-    isRecieved.value = !isRecieved.value;
-    isList.value = false;
-    isSent.value = false;
-    if (isRecieved.value) {
-      activeRecieved.value = "is-active";
-      activeList.value = "";
-      activeSent.value = "";
-    } else {
-      activeRecieved.value = "";
-    }
-  }
-
-  if (payload === "sent") {
-    isSent.value = !isSent.value;
-    isList.value = false;
-    isRecieved.value = false;
-    if (isSent.value) {
-      activeSent.value = "is-active";
-      activeList.value = "";
-      activeRecieved.value = "";
-    } else {
-      activeSent.value = "";
-    }
-  }
+  currentTab.value = payload;
 }
 </script>
 
@@ -68,7 +36,10 @@ function toggle(payload: string) {
   <section>
     <div class="tabs is-toggle is-fullwidth is-small">
       <ul>
-        <li @click="toggle('my-list')" :class="activeList">
+        <li
+          @click="toggle('my-list')"
+          :class="{ 'is-active': currentTab === 'my-list' }"
+        >
           <a>
             <span class="icon"
               ><i class="fa-solid fa-table-list" aria-hidden="true"></i
@@ -76,7 +47,10 @@ function toggle(payload: string) {
             <span>My List</span>
           </a>
         </li>
-        <li @click="toggle('recieved')" :class="activeRecieved">
+        <li
+          @click="toggle('recieved')"
+          :class="{ 'is-active': currentTab === 'recieved' }"
+        >
           <a>
             <span class="icon"
               ><i class="fa-solid fa-inbox" aria-hidden="true"></i
@@ -84,7 +58,10 @@ function toggle(payload: string) {
             <span>Recieved</span>
           </a>
         </li>
-        <li @click="toggle('sent')" :class="activeSent">
+        <li
+          @click="toggle('sent')"
+          :class="{ 'is-active': currentTab === 'sent' }"
+        >
           <a>
             <span class="icon"
               ><i class="fa-solid fa-share" aria-hidden="true"></i
@@ -97,38 +74,12 @@ function toggle(payload: string) {
     <div class="columns is-mobile">
       <div class="column is-four-fifths is-offset-1">
         <MyMessage
-          v-if="isList"
-          v-for="(message, index) in myMessage"
+          v-for="(message, index) in currentList"
           :key="message"
-          :message="message.message"
-          :subject="message.subject"
-          :reciever="message.reciever"
-          :sender="message.sender"
-          :date="message.date"
-          :index="index"
-        ></MyMessage>
-        <RecievedMessages
-          v-if="isRecieved"
-          v-for="(message, index) in recievedMessages"
-          :key="message"
-          :message="message.message"
-          :subject="message.subject"
-          :reciever="message.reciever"
-          :sender="message.sender"
-          :date="message.date"
-          :index="index"
-        ></RecievedMessages>
-        <SentMessages
-          v-if="isSent"
-          v-for="(message, index) in sentList"
-          :key="message"
-          :message="message.message"
-          :subject="message.subject"
-          :reciever="message.reciever"
-          :sender="message.sender"
-          :date="message.date"
-          :index="index"
-        ></SentMessages>
+          :message="message"
+          :list="currentTab"
+        >
+        </MyMessage>
       </div>
     </div>
   </section>
