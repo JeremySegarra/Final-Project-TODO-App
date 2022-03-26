@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import { userCounter } from "../../models/store/user";
+<!-- <script setup lang="ts">
+import { userStore } from "../../models/store/user";
 import { ref } from "vue";
 
 const props = defineProps([
@@ -12,7 +12,7 @@ const props = defineProps([
 ]);
 const completed = ref(false);
 
-const store = userCounter();
+const store = userStore();
 
 function removeMessage(index: number) {
   store.deleteMySentMessage(index);
@@ -49,4 +49,4 @@ function setCompleted() {
 p strong {
   color: black;
 }
-</style>
+</style> -->

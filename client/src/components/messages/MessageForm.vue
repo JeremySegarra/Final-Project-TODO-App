@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { list } from "../../models/user";
-import { userCounter } from "../../models/store/user";
+import { userStore } from "../../models/store/user";
 
 //need to updated the list to be a friends list for current users
 const subject = ref("");
 const message = ref("");
 const usernameToSend = ref("");
 
-const store = userCounter();
+const store = userStore();
 function createMessage(subject: string, message: string) {
   store.addMessage(subject, message);
   reset();

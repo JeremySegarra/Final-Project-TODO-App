@@ -3,9 +3,9 @@ import { list } from "../user";
 import { currentDate } from "./current-date";
 import { loggedInUser } from "./current-login-user";
 
-export const userCounter = defineStore("counter", {
+export const userStore = defineStore("user", {
   state: () => ({
-    counter: 0,
+    counter: 1,
     list: list,
     date: currentDate(),
   }),
@@ -20,8 +20,7 @@ export const userCounter = defineStore("counter", {
       username: string,
       email: string,
       password: string,
-      verify: string,
-      index: number
+      verify: string
     ) {
       //try not to add an empty user just add 1 at a time fix tomorrow
 
@@ -35,7 +34,7 @@ export const userCounter = defineStore("counter", {
         recievedMessages: [],
         myMessages: [],
         sentMessages: [],
-        id: index + 1,
+        id: this.counter,
       });
       console.table(this.list);
       this.addOne();
@@ -55,21 +54,21 @@ export const userCounter = defineStore("counter", {
         date: this.date,
       });
     },
-    deleteMessage(index: number) {
+    deleteMessage(index: number, messageTab: String) {
       const loggedInUserData = loggedInUser();
 
-      loggedInUserData?.myMessages.splice(index, 1);
+      switch (messageTab) {
+        case "my-list":
+          loggedInUserData?.myMessages.splice(index, 1);
+          break;
+        case "recieved":
+          loggedInUserData?.recievedMessages.splice(index, 1);
+          break;
+        case "sent":
+          loggedInUserData?.sentMessages.splice(index, 1);
+      }
     },
-    deleteMySentMessage(index: number) {
-      const loggedInUserData = loggedInUser();
 
-      loggedInUserData?.sentMessages.splice(index, 1);
-    },
-    deleteMyRecievedMessage(index: number) {
-      const loggedInUserData = loggedInUser();
-
-      loggedInUserData?.recievedMessages.splice(index, 1);
-    },
     sendMessage(sub: string, text: string, usernameToSend: string) {
       const loggedInUserData = loggedInUser();
 

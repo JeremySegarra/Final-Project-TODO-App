@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { userCounter } from "../../models/store/user";
+import { userStore } from "../../models/store/user";
 import { ref } from "vue";
 
-const store = userCounter();
+const store = userStore();
 // const props = defineProps([
 //   "message",
 //   "subject",
@@ -16,7 +16,7 @@ const props = defineProps(["message", "list"]);
 const completed = ref(false);
 
 function removeMessage(index: number) {
-  store.deleteMessage(index);
+  store.deleteMessage(index, props.list);
 }
 
 function setCompleted() {

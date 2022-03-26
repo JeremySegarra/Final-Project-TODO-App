@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { RouterLink } from "vue-router";
-import { userCounter } from "../../../models/store/user";
+import {userStore} from '../../../models/store/user'
 import router from "../../../router";
 
-const counter = userCounter();
+const useStore = userStore();
 const formIsValid = ref(false);
 
 const firstname = reactive({
@@ -121,14 +121,14 @@ function submitForm() {
     return;
   }
 
-  counter.setNewUser(
+  useStore.setNewUser(
     firstname.value,
     lastname.value,
     username.value,
     email.value,
     password.value,
     password.verify,
-    counter.$state.counter
+
   );
 
   router.push("/");
