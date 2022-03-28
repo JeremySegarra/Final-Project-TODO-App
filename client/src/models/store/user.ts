@@ -22,8 +22,6 @@ export const userStore = defineStore("user", {
       password: string,
       verify: string
     ) {
-      //try not to add an empty user just add 1 at a time fix tomorrow
-
       this.list.push({
         firstName: firstname,
         lastName: lastname,
@@ -36,7 +34,7 @@ export const userStore = defineStore("user", {
         sentMessages: [],
         id: this.counter,
       });
-      console.table(this.list);
+
       this.addOne();
 
       //update function for backend post request to send data

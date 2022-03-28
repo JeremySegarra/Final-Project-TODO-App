@@ -3,14 +3,7 @@ import { userStore } from "../../models/store/user";
 import { ref } from "vue";
 
 const store = userStore();
-// const props = defineProps([
-//   "message",
-//   "subject",
-//   "index",
-//   "date",
-//   "reciever",
-//   "sender",
-// ]);
+
 const props = defineProps(["message", "list"]);
 
 const completed = ref(false);

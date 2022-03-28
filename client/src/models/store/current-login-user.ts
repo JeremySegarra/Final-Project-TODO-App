@@ -1,5 +1,4 @@
 import { LoginStore } from "./login-session";
-import { userStore } from "./user";
 
 export function loggedInUser() {
   const loginStore = LoginStore();
