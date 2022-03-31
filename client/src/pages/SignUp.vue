@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import SignupForm from "../components/navigation/signup/SignupForm.vue";
+import SignupForm from "../components/signup/SignupForm.vue";
 import Title from "../components/UI/Title.vue";
 </script>
 

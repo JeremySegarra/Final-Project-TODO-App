@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import LoginForm from "../components/navigation/login/LoginForm.vue";
-import LoginBrands from "../components/navigation/login/LoginBrands.vue";
+import LoginForm from "../components/login/LoginForm.vue";
+import LoginBrands from "../components/login/LoginBrands.vue";
 import Title from "../components/UI/Title.vue";
 </script>
 
