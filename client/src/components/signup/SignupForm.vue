@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { RouterLink } from "vue-router";
-import {userStore} from '../../../models/store/user'
-import router from "../../../router";
+import {userStore} from '../../models/store/user'
+import router from "../../router";
 
 const useStore = userStore();
 const formIsValid = ref(false);
