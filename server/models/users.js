@@ -1,3 +1,7 @@
+const bcrypt = require("bcrypt");
+
+let highestId = 2;
+
 const list = [
   {
     firstName: "administrator",
