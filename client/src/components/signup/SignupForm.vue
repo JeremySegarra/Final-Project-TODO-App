@@ -109,6 +109,7 @@ watch(
   }
 
 function submitForm() {
+  
   validateForm();
   if (formIsValid.value === false) {
     firstname.isValid = false;
@@ -127,8 +128,6 @@ function submitForm() {
     username.value,
     email.value,
     password.value,
-    password.verify,
-
   );
 
   router.push("/");

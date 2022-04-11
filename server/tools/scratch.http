@@ -1,22 +1,60 @@
-http://localhost:3000
+http://localhost:3001
 
 ###
-GET http://localhost:3000/api/users/
+GET http://localhost:3001/api/users/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJEb25hbGQiLCJsYXN0TmFtZSI6IkNocmlzdGFuIiwidXNlcm5hbWUiOiJDRCIsImVtYWlsIjoiY2hyaXN0aWFuQGdtYWlsLmNvbSIsInJlY2lldmVkTWVzc2FnZXMiOltdLCJteU1lc3NhZ2VzIjpbXSwic2VudE1lc3NhZ2VzIjpbXSwiaWQiOjMsImlhdCI6MTY0OTU1NjMzMn0.B7JhHZgsVYRyTaBQ7jZ8LyuUGpvX-ABV00vCEFTIyGc
 
 ###
-GET http://localhost:3000/api/users/1
+GET http://localhost:3001/api/users/6252e4e019c4d87b8f8273ea
+###
+DELETE http://localhost:3001/api/users/1
 
 ###
 
-POST http://localhost:3000/api/users
+POST http://localhost:3001/api/users/signup
 Content-Type: application/json
 
-{
+  {
     "firstName": "Donald",
     "lastName": "Christan",
-    "handle": "johndoe",
-    "password": "Hugo",
-    "email": "jhon@doe.com",
-    "pic": "https://randomuser.me/api/portraits/men/1.jpg"
+    "username": "CD",
+    "email": "christian@gmail.com",
+    "password": "imchristan",
+    "verifypass": "imchristan",
+    "recievedMessages": [],
+    "myMessages": [],
+    "sentMessages": []
+  }
+
+###
+
+PATCH http://localhost:3001/api/users/3
+Content-Type: application/json
+
+  {
+    "firstName": "Donald",
+    "lastName": "Christan",
+    "username": "CD",
+    "email": "christian@gmail.com",
+    "password": "christiannewpassword",
+    "verifypass": "christiannewpassword",
+    "recievedMessages": [],
+    "myMessages": [],
+    "sentMessages": []
+  }
+
+###
+
+POST http://localhost:3001/api/users/login
+Content-Type: application/json
+
+  {
+    "username": "CD",
+    "password": "imchristan"
     
   }
+
+###
+
+POST http://localhost:3001/api/users/seed
+Content-Type: application/json

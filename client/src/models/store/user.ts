@@ -14,28 +14,51 @@ export const userStore = defineStore("user", {
     addOne() {
       this.counter++;
     },
-    setNewUser(
+    async setNewUser(
       firstname: string,
       lastname: string,
       username: string,
       email: string,
-      password: string,
-      verify: string
+      password: string
     ) {
-      this.list.push({
-        firstName: firstname,
-        lastName: lastname,
-        username: username,
-        email: email,
-        password: password,
-        verifypass: verify,
+      const user = {
+        firstname,
+        lastname,
+        username,
+        email,
+        password,
         recievedMessages: [],
         myMessages: [],
         sentMessages: [],
-        id: this.counter,
-      });
+      };
 
-      this.addOne();
+      try {
+        const response = await fetch("/api/users/signup", {
+          method: "POST",
+          body: JSON.stringify(user),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response);
+      } catch (err) {
+        console.log("This is the error", err);
+      }
+
+      // this.list.push({
+      //   firstName: firstname,
+      //   lastName: lastname,
+      //   username: username,
+      //   email: email,
+      //   password: password,
+      //   verifypass: verify,
+      //   recievedMessages: [],
+      //   myMessages: [],
+      //   sentMessages: [],
+      //   id: this.counter,
+      // });
+
+      // this.addOne();
 
       //update function for backend post request to send data
     },
