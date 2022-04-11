@@ -40,8 +40,17 @@ export const userStore = defineStore("user", {
             "Content-Type": "application/json",
           },
         });
-        console.log(response);
+
+        if (!response.ok) {
+          response.text().then((text) => {
+            throw new Error(text);
+          });
+        }
       } catch (err) {
+        if (err.message === "User already exists") {
+          throw err;
+        }
+        //Now that i caught the error message i can display it to the user somehow
         console.log("This is the error", err);
       }
 

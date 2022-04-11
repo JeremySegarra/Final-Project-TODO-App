@@ -20,7 +20,7 @@ const lastname = reactive({
 const username = reactive({
   value: "",
   isValid: true,
-  // isTaken: false,
+  isTaken: false,
 });
 
 const email = reactive({
@@ -128,9 +128,15 @@ function submitForm() {
     username.value,
     email.value,
     password.value,
-  );
+  )
+  .then(() => {
+    router.push("/");
+  })
+  .catch(err => {
+    // email.isTaken = true;
+    username.isTaken = false;
+  });
 
-  router.push("/");
 }
 
 </script>

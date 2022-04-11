@@ -153,6 +153,7 @@ async function create(newUser) {
     newUser.password,
     +process.env.SALT_ROUNDS
   );
+  console.log("Im in the create function moron!");
 
   collection.insertOne(newUser);
 

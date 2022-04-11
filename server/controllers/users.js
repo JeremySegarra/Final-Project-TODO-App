@@ -37,7 +37,7 @@ app
     const { firstname, lastname, username, email, password } = req.body;
 
     userModel
-      .verifyUserCredentials(firstname, lastname, username, email)
+      .verifyUserCredentials(firstname, lastname, username, email, password)
       .then(() => {
         userModel
           .create(req.body)
