@@ -1,97 +1,49 @@
 require("dotenv").config();
 
 const express = require("express");
+const proxy = require("express-http-proxy");
+
+const userModel = require("./models/users");
 const usersController = require("./controllers/users");
+
+const { requireAuth } = require("./models/auth");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app
-  .use("/", express.static(__dirname + "/public/"))
-  .use(express.json())
-  .get("/api/", (req, res) => {
-    res.send("You are on the homepage");
-  })
-  .use("/api/users", usersController);
+// app.use("/", express.static(__dirname + "/public/"));
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+  const auth = req.headers.authorization;
+  // console.log("auth in middleware: ", auth);
+  if (auth) {
+    const token = auth.split(" ")[1];
+    userModel
+      .verifyToken(token)
+      .then((user) => {
+        req.user = user;
+        next();
+      })
+      .catch(next);
+  } else {
+    next();
+  }
+});
+app.get("/api/", (req, res) => {
+  res.send("You are on the homepage");
+});
+app.use("/api/users", usersController);
+
+//allows me to not have to build out the entire server every time I want to make a change
+
+if (process.env.DEV === "true") {
+  app.all("/*", proxy("http://localhost:3000"));
+} else {
+  app.use("/", express.static(__dirname + "/public/"));
+}
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-// const express = require("express");
-
-// const { MongoClient, ServerApiVersion } = require("mongodb");
-
-// const uri =
-//   "mongodb+srv://jeremysegarra:bih6cUsxNrf09CLv@cluster0.kcrn1.mongodb.net/Messanger-App?retryWrites=true&w=majority";
-
-// const client = new MongoClient(uri, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   serverApi: ServerApiVersion.v1,
-// });
-
-// const app = express();
-// const port = 3001;
-
-// app.use(express.json());
-
-// app
-//   .get("/", (req, res) => {
-//     res.send("You are on the homepage");
-//   })
-//   .get("/about", (req, res) => {
-//     res.send("You are on the about page");
-//   })
-//   .get("/contact", (req, res) => {
-//     res.send({
-//       email: "plotkin@newpaltz.edu",
-//       phone: "123-456-7890",
-//       twitter: "@jerpaltz",
-//       instagram: "@jerpaltz",
-//     });
-//   })
-//   .post("/signup", (req, res) => {
-//     const payload = req.body;
-//     console.log(payload);
-//     const { firstname, lastname, username, email, password } = payload;
-
-//     if (firstname === "") {
-//       res.status(400).send({
-//         error: true,
-//         message: "firstname was empty",
-//       });
-//       return;
-//     }
-//     if (lastname === "") {
-//     }
-//     if (username === "") {
-//     }
-//     if (email === "") {
-//     }
-//     if (password === "") {
-//     }
-
-//     client.connect((err) => {
-//       const collection = client.db("Messanger-App").collection("Users");
-
-//       const data = {
-//         firstname: firstname,
-//         lastname: lastname,
-//         username: username,
-//         email: email,
-//         password,
-//       };
-
-//       collection.insertOne(data);
-//       // perform actions on the collection object
-//     });
-
-//     res.status(200).send(payload);
-//   });
-
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
-
-// //for package.json "^4.17.3" carrot means get me the latest "~4.17.3" tilda means get me all the patches "4.17.3" means get me exact version
