@@ -133,8 +133,12 @@ function submitForm() {
     router.push("/");
   })
   .catch(err => {
+    console.log("Im inside the catch block of the signup form", err); 
+    if(err.type === "username") {
+      username.isTaken = true;
+    }
     // email.isTaken = true;
-    username.isTaken = false;
+    // username.isTaken = false;
   });
 
 }

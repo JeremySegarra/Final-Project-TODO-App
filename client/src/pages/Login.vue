@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-mobile">
-    <div class="column is-half is-offset-one-quarter">
+    <div class="column is-four-fifths is-offset-1">
       <Title>Login</Title>
       <p>
         <strong>Note To Professor:</strong> to easily log in without creating an

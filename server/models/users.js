@@ -12,10 +12,11 @@ const list = [
     username: "admin",
     email: "admin",
     password: "k",
-    verifypass: "k",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],
+    pendingRequests: [],
+    friendsList: [],
   },
   {
     firstName: "jeremy",
@@ -23,10 +24,11 @@ const list = [
     username: "jeremypro",
     email: "j@gmail.com",
     password: "cracatoa",
-    verifypass: "cracatoa",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],
+    pendingRequests: [],
+    friendsList: [],
   },
   {
     firstName: "karen",
@@ -34,10 +36,11 @@ const list = [
     username: "karenpro",
     email: "ksmith@gmail.com",
     password: "password",
-    verifypass: "password",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],
+    pendingRequests: [],
+    friendsList: [],
   },
 ];
 
@@ -68,17 +71,11 @@ function remove(id) {
 }
 
 async function update(id, newUser) {
-  const index = list.findIndex((user) => user.id === parseInt(id));
-  const oldUser = list[index];
-
-  newUser.password = await bcrypt.hash(newUser.password, 10);
-  console.log("This is the list in update ---- ", list);
-  console.log("This is the old user ---- ", oldUser);
-  console.log("This is the new user ---- ", newUser);
-
-  newUser = list[index] = { ...oldUser, ...newUser };
-  console.log("This is the newUser in update after update ---- ", newUser);
-
+  newUser.username = await collection.findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    { $set: newUser },
+    { returnDocument: "after" }
+  );
   return { ...newUser, password: undefined, verifypass: undefined };
 }
 
@@ -124,16 +121,28 @@ async function verifyUserCredentials(
   password
 ) {
   if (firstname === "") {
-    throw { statusCode: 404, message: "Please enter a first name" };
+    throw {
+      statusCode: 404,
+      message: "Please enter a first name",
+      type: "firstname",
+    };
   }
   if (lastname === "") {
-    throw { statusCode: 404, message: "Please enter a last name" };
+    throw {
+      statusCode: 404,
+      message: "Please enter a last name",
+      type: "lastname",
+    };
   }
-  if (username === "") {
-    throw { statusCode: 404, message: "Please enter a username" };
+  if (username === "" || username === undefined) {
+    throw {
+      statusCode: 404,
+      message: "Please enter a username",
+      type: "username",
+    };
   }
   if (email === "") {
-    throw { statusCode: 404, message: "Please enter an email" };
+    throw { statusCode: 404, message: "Please enter an email", type: "email" };
   }
 
   const user = await collection.findOne({
@@ -144,6 +153,7 @@ async function verifyUserCredentials(
     throw {
       statusCode: 404,
       message: "User already exists, please enter a new username",
+      type: "username",
     };
   }
 }
@@ -153,7 +163,6 @@ async function create(newUser) {
     newUser.password,
     +process.env.SALT_ROUNDS
   );
-  console.log("Im in the create function moron!");
 
   collection.insertOne(newUser);
 

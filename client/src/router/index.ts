@@ -7,6 +7,7 @@ import Login from "../pages/Login.vue";
 import SignUp from "../pages/SignUp.vue";
 import ToDo from "../pages/ToDo.vue";
 import Budget from "../pages/Budget.vue";
+import FriendList from "../pages/FriendList.vue";
 
 const routes: RouteRecordRaw[] = [
   { path: "/", component: Login },
@@ -14,6 +15,7 @@ const routes: RouteRecordRaw[] = [
   { path: "/signup", component: SignUp },
   { path: "/todo", component: ToDo },
   { path: "/budget", component: Budget },
+  { path: "/friendslist", component: FriendList },
 ];
 
 const router = createRouter({
@@ -24,7 +26,7 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   //list of paths that require login!
-  const protectedUrls = ["/home", "/todo", "/budget"];
+  const protectedUrls = ["/home", "/todo", "/budget", "/friendslist"];
   const loginSession = LoginStore();
   if (protectedUrls.includes(to.path)) {
     if (!loginSession.$state.session.user) {

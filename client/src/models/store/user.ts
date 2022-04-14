@@ -30,6 +30,8 @@ export const userStore = defineStore("user", {
         recievedMessages: [],
         myMessages: [],
         sentMessages: [],
+        pendingRequests: [],
+        friendsList: ["bowser", "peach", "yoshi"],
       };
 
       try {
@@ -41,17 +43,15 @@ export const userStore = defineStore("user", {
           },
         });
 
+        //im getting the error text object from the backend here
         if (!response.ok) {
-          response.text().then((text) => {
-            throw new Error(text);
-          });
+          const data = await response.json();
+          throw data;
         }
       } catch (err) {
-        if (err.message === "User already exists") {
-          throw err;
-        }
-        //Now that i caught the error message i can display it to the user somehow
-        console.log("This is the error", err);
+        //this changes the error to a regular javascript object
+        const error = JSON.parse(JSON.stringify(err));
+        throw error;
       }
 
       // this.list.push({

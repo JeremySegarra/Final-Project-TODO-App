@@ -17,7 +17,7 @@ Content-Type: application/json
   {
     "firstName": "Donald",
     "lastName": "Christan",
-    "username": "CD",
+    "usernam": "CD",
     "email": "christian@gmail.com",
     "password": "imchristan",
     "verifypass": "imchristan",
@@ -28,19 +28,12 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3001/api/users/3
+PATCH http://localhost:3001/api/users/62559fbd18b049fb5e8ead1f
 Content-Type: application/json
 
   {
-    "firstName": "Donald",
-    "lastName": "Christan",
-    "username": "CD",
-    "email": "christian@gmail.com",
-    "password": "christiannewpassword",
-    "verifypass": "christiannewpassword",
-    "recievedMessages": [],
-    "myMessages": [],
-    "sentMessages": []
+    
+    "friendsList": ["peach", "mario", "luigi"]
   }
 
 ###

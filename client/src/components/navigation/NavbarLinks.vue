@@ -18,8 +18,20 @@ const props = defineProps({ display: String });
         ><strong>Home</strong></RouterLink
       >
       <RouterLink to="/todo" class="navbar-item"
-        ><strong>To Do</strong></RouterLink
+        ><strong>Messages</strong></RouterLink
       >
+      <RouterLink to="/friendslist" class="navbar-item"
+        ><strong>Friends List </strong>
+
+        <span class="icon">
+          <i class="fas fa-bell"></i>
+        </span>
+        <!-- Place a v-if here and change the number to the length of the currently logged in users pendingRequests list -->
+        <span class="tag is-danger">
+          {{ 2 }}
+        </span>
+      </RouterLink>
+
       <RouterLink to="/budget" class="navbar-item"
         ><strong>Budget</strong></RouterLink
       >
