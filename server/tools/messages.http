@@ -1,0 +1,2 @@
+###
+GET http://localhost:3001/api/messages/friends/62559fbd18b049fb5e8ead1f

@@ -7,7 +7,7 @@ const userModel = require("../models/users");
 const CREATED_STATUS = 201;
 
 app
-  .get("/", requireAuth, (req, res, next) => {
+  .get("/", (req, res, next) => {
     userModel
       .getList()
       .then((users) => {
@@ -37,7 +37,7 @@ app
     const { firstname, lastname, username, email, password } = req.body;
 
     userModel
-      .verifyUserCredentials(firstname, lastname, username, email)
+      .verifyUserCredentials(firstname, lastname, username, email, password)
       .then(() => {
         userModel
           .create(req.body)
@@ -56,7 +56,7 @@ app
       });
   })
 
-  .patch("/:id", requireAuth, (req, res, next) => {
+  .patch("/:id", (req, res, next) => {
     userModel
       .update(req.params.id, req.body)
       .then((updatedUser) => {
