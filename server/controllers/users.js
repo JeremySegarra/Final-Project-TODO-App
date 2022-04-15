@@ -11,7 +11,8 @@ app
     userModel
       .getList()
       .then((users) => {
-        res.status(CREATED_STATUS).json(users);
+        console.log(users);
+        res.send({ success: true, errors: [], data: users });
       })
       .catch((err) => {
         res.status(500).json(err);

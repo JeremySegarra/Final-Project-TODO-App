@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import NavbarLinks from "./NavbarLinks.vue";
 import NavbarBurger from "./NavbarBurger.vue";
+import LoginBadge from "../LoginBadge.vue";
 import { ref, reactive, onMounted } from "vue";
 
 const isClicked = ref(false);
@@ -29,6 +30,7 @@ function showLinks() {
           width="100"
         />
       </a>
+
       <NavbarBurger @click="showLinks"></NavbarBurger>
     </div>
 

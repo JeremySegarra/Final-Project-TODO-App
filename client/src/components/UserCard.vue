@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { defineProps } from "vue";
 //also need to get the props from the parent component meaning both lists
+const props = defineProps(["list", "currentTab"]);
 
 async function addFriend() {
   //This function is going to remove the user from the logged in users Request list and add them to their Friends List in the Database
@@ -25,10 +27,10 @@ async function removeRequest() {
         </div>
         <div class="media-right">
           <!-- This will be the username field -->
-          <p class="title is-4">Jeremypro</p>
+          <p class="title is-4">{{ props.list.username }}</p>
           <hr />
           <!-- This is the email field -->
-          <p class="subtitle is-6">jeremy@gmail.com</p>
+          <p class="subtitle is-6">{{ props.list.email }}</p>
         </div>
       </div>
     </div>
@@ -37,6 +39,7 @@ async function removeRequest() {
         href="#"
         class="card-footer-item button is-info"
         @click="addFriend"
+        v-if="props.currentTab === 'friend-requests' || 'active-users'"
       >
         Add
       </button>
@@ -44,6 +47,7 @@ async function removeRequest() {
         href="#"
         class="card-footer-item button is-danger"
         @click="removeRequest"
+        v-if="props.currentTab === 'friend-requests'"
       >
         Remove
       </button>

@@ -2,6 +2,7 @@
 import BaseButton from "../UI/BaseButton.vue";
 import { RouterLink } from "vue-router";
 import { LoginStore } from "../../models/store/login-session";
+import LoginBadge from "../LoginBadge.vue";
 
 const loginStore = LoginStore();
 
@@ -37,6 +38,9 @@ const props = defineProps({ display: String });
       >
     </div>
     <div v-if="loginStore.isLoggedIn" class="navbar-end">
+      <div class="navbar-item">
+        <LoginBadge></LoginBadge>
+      </div>
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-primary" @click="logout">Logout</a>

@@ -1,7 +1,7 @@
 http://localhost:3001
 
 ###
-GET http://localhost:3001/api/users/
+GET http://localhost:3001/api/users
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJEb25hbGQiLCJsYXN0TmFtZSI6IkNocmlzdGFuIiwidXNlcm5hbWUiOiJDRCIsImVtYWlsIjoiY2hyaXN0aWFuQGdtYWlsLmNvbSIsInJlY2lldmVkTWVzc2FnZXMiOltdLCJteU1lc3NhZ2VzIjpbXSwic2VudE1lc3NhZ2VzIjpbXSwiaWQiOjMsImlhdCI6MTY0OTU1NjMzMn0.B7JhHZgsVYRyTaBQ7jZ8LyuUGpvX-ABV00vCEFTIyGc
 
 ###
@@ -42,8 +42,8 @@ POST http://localhost:3001/api/users/login
 Content-Type: application/json
 
   {
-    "username": "CD",
-    "password": "imchristan"
+    "username": "billybob",
+    "password": "Qq1!1111"
     
   }
 
