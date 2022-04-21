@@ -5,71 +5,49 @@ import { loggedInUser } from "./current-login-user";
 
 export const userStore = defineStore("user", {
   state: () => ({
-    counter: 1,
     list: list,
     date: currentDate(),
   }),
 
   actions: {
-    addOne() {
-      this.counter++;
+    randomNumberGenerator() {
+      return Math.floor(Math.random() * 30) + 1;
     },
     async setNewUser(
-      firstname: string,
-      lastname: string,
+      firstName: string,
+      lastName: string,
       username: string,
       email: string,
       password: string
     ) {
       const user = {
-        firstname,
-        lastname,
+        firstName,
+        lastName,
         username,
         email,
         password,
+        pic: `https://randomuser.me/api/portraits/men/${this.randomNumberGenerator()}.jpg`,
         recievedMessages: [],
         myMessages: [],
         sentMessages: [],
         pendingRequests: [],
-        friendsList: ["bowser", "peach", "yoshi"],
+        friendsList: [],
       };
 
-      try {
-        const response = await fetch("/api/users/signup", {
-          method: "POST",
-          body: JSON.stringify(user),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      const response = await fetch("http://localhost:3001/api/users/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
 
-        //im getting the error text object from the backend here
-        if (!response.ok) {
-          const data = await response.json();
-          throw data;
-        }
-      } catch (err) {
-        //this changes the error to a regular javascript object
-        const error = JSON.parse(JSON.stringify(err));
+      if (!response.ok) {
+        console.log("this is in the not ok");
+
+        const error = await response.json();
         throw error;
       }
-
-      // this.list.push({
-      //   firstName: firstname,
-      //   lastName: lastname,
-      //   username: username,
-      //   email: email,
-      //   password: password,
-      //   verifypass: verify,
-      //   recievedMessages: [],
-      //   myMessages: [],
-      //   sentMessages: [],
-      //   id: this.counter,
-      // });
-
-      // this.addOne();
-
-      //update function for backend post request to send data
     },
     addMessage(sub: string, text: string) {
       const loggedInUserData = loggedInUser();

@@ -1,15 +1,29 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
-//also need to get the props from the parent component meaning both lists
-const props = defineProps(["list", "currentTab"]);
+import { useFriends } from "../models/store/friend-requests";
 
-async function addFriend() {
+const useStore = useFriends();
+//also need to get the props from the parent component meaning both lists
+const props = defineProps(["list", "index", "currentTab"]);
+const isAll = props.currentTab === "active-users";
+console.log("Im checking the list");
+
+console.log(props.list);
+
+function addFriendAll(index: number) {
   //This function is going to remove the user from the logged in users Request list and add them to their Friends List in the Database
   //we need to send the data and update the database
+  useStore.friendRequest(index);
 }
-async function removeRequest() {
-  //This function is going to remove the user from the logged in users Request list and from the database
-  //we need to send the data and update the database
+
+function addFriend(index: number) {
+  useStore.addFriend(index);
+
+  //maybe call remove request here? or in pinia
+}
+
+function removeRequest(index: number) {
+  useStore.removePendingRequest(index, props.currentTab);
 }
 </script>
 
@@ -19,10 +33,7 @@ async function removeRequest() {
       <div class="media">
         <div class="media-left">
           <figure class="image is-120x120">
-            <img
-              src="https://randomuser.me/api/portraits/men/4.jpg"
-              alt="Placeholder image"
-            />
+            <img :src="list.pic" alt="Placeholder image" />
           </figure>
         </div>
         <div class="media-right">
@@ -38,16 +49,35 @@ async function removeRequest() {
       <button
         href="#"
         class="card-footer-item button is-info"
-        @click="addFriend"
-        v-if="props.currentTab === 'friend-requests' || 'active-users'"
+        @click="addFriendAll(props.index)"
+        v-if="props.currentTab === 'active-users'"
+      >
+        Send Friend Request
+      </button>
+      <button
+        href="#"
+        class="card-footer-item button is-info"
+        @click="addFriendAll(props.index)"
+        v-if="props.currentTab === 'friend-list'"
+      >
+        Send Message
+      </button>
+      <button
+        href="#"
+        class="card-footer-item button is-info"
+        @click="addFriend(props.index)"
+        v-if="props.currentTab === 'pending-requests'"
       >
         Add
       </button>
       <button
         href="#"
         class="card-footer-item button is-danger"
-        @click="removeRequest"
-        v-if="props.currentTab === 'friend-requests'"
+        @click="removeRequest(props.index)"
+        v-if="
+          props.currentTab === 'friend-list' ||
+          props.currentTab === 'pending-requests'
+        "
       >
         Remove
       </button>

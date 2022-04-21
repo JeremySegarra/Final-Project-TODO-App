@@ -1,10 +1,25 @@
 <script setup lang="ts">
-import BaseButton from "../UI/BaseButton.vue";
 import { RouterLink } from "vue-router";
 import { LoginStore } from "../../models/store/login-session";
 import LoginBadge from "../LoginBadge.vue";
+import { useFriends } from "../../models/store/friend-requests";
+import { computed, watch, ref } from "vue";
 
+const useStore = useFriends();
 const loginStore = LoginStore();
+// const requestListLength = ref(useStore.pendingRequests.length);
+//use watchder instead
+
+// watch(requestListLength, () => {
+
+// });
+const list = computed(() => {
+  // if (loginStore.isLoggedIn) {
+  //Possible error the if conditon could be our dependecy change double check if this works when we remove requests from list
+  //possible the return is not our dependecy change meaning this will not run
+  return useStore.pendingRequests.length;
+  // }
+});
 
 function logout() {
   loginStore.Logout();
@@ -24,12 +39,18 @@ const props = defineProps({ display: String });
       <RouterLink to="/friendslist" class="navbar-item"
         ><strong>Friends List </strong>
 
-        <span class="icon">
+        <span
+          class="icon"
+          v-if="loginStore.isLoggedIn && useStore.pendingRequests.length > 0"
+        >
           <i class="fas fa-bell"></i>
         </span>
         <!-- Place a v-if here and change the number to the length of the currently logged in users pendingRequests list -->
-        <span class="tag is-danger">
-          {{ 2 }}
+        <span
+          class="tag is-danger"
+          v-if="loginStore.isLoggedIn && useStore.pendingRequests.length > 0"
+        >
+          {{ list }}
         </span>
       </RouterLink>
 

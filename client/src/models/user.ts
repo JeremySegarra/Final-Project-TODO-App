@@ -2,29 +2,35 @@
  */
 
 export interface User {
+  _id: string;
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   password: string;
-  verifypass: string;
+  pic: string;
   recievedMessages: Array<any>;
   myMessages: Array<any>;
   sentMessages: Array<any>;
-  id: number;
+  pendingRequests: Array<Object>;
+  friendsList: Array<Object>;
+  token: string;
 }
 
 export const list: User[] = [
   {
-    firstName: "administrator",
-    lastName: "admin",
-    username: "admin",
-    email: "admin",
-    password: "k",
-    verifypass: "k",
+    _id: "",
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    pic: "",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],
-    id: 0,
+    pendingRequests: [{}],
+    friendsList: [{}],
+    token: "",
   },
 ];

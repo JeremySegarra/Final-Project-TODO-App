@@ -121,7 +121,8 @@ function submitForm() {
     password.verifyIsValid = false;
     return;
   }
-
+  console.log(firstname.value, lastname.value, username.value, email.value, password.value);
+  
   useStore.setNewUser(
     firstname.value,
     lastname.value,
@@ -133,10 +134,10 @@ function submitForm() {
     router.push("/");
   })
   .catch(err => {
-    console.log("Im inside the catch block of the signup form", err); 
-    if(err.type === "username") {
-      username.isTaken = true;
-    }
+    console.log("Im inside the catch block of the signup form", err.errors[0]); 
+    // if(err.type === "username") {
+    //   username.isTaken = true;
+    // }
     // email.isTaken = true;
     // username.isTaken = false;
   });

@@ -12,6 +12,7 @@ const list = [
     username: "admin",
     email: "admin",
     password: "k",
+    pic: "https://randomuser.me/api/portraits/men/1.jpg",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],
@@ -24,6 +25,7 @@ const list = [
     username: "jeremypro",
     email: "j@gmail.com",
     password: "cracatoa",
+    pic: "https://randomuser.me/api/portraits/men/2.jpg",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],
@@ -36,6 +38,20 @@ const list = [
     username: "karenpro",
     email: "ksmith@gmail.com",
     password: "password",
+    pic: "https://randomuser.me/api/portraits/men/3.jpg",
+    recievedMessages: [],
+    myMessages: [],
+    sentMessages: [],
+    pendingRequests: [],
+    friendsList: [],
+  },
+  {
+    firstName: "donald",
+    lastName: "christan",
+    username: "dc",
+    email: "dcmith@gmail.com",
+    password: "password",
+    pic: "https://randomuser.me/api/portraits/men/4.jpg",
     recievedMessages: [],
     myMessages: [],
     sentMessages: [],
@@ -54,7 +70,7 @@ async function getList() {
 
 async function get(id) {
   const user = await collection.findOne({ _id: new ObjectId(id) });
-  console.log("Im inside the get function", user);
+  // console.log("Im inside the get function", user);
 
   return { ...user, password: undefined, verifypass: undefined };
 }
@@ -81,9 +97,12 @@ async function update(id, newUser) {
 
 async function login(username, password) {
   const user = await collection.findOne({ username });
-  console.log("This is the user ---- ", user);
+  // console.log("This is the user ---- ", user);
   if (!user) {
-    throw { statusCode: 404, message: "User not found" };
+    throw {
+      statusCode: 404,
+      message: "User not found please re-enter username",
+    };
   }
   //user.password needs to access our database
   if (!(await bcrypt.compare(password, user.password))) {
@@ -110,7 +129,9 @@ function verifyToken(token) {
 
 //dont really need this function just a test
 function seed() {
-  return collection.insertMany(list);
+  return list.forEach(async (x) => {
+    create(x);
+  });
 }
 
 async function verifyUserCredentials(

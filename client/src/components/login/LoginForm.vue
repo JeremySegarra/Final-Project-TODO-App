@@ -1,15 +1,51 @@
 <script setup lang="ts">
 import { LoginStore } from "../../models/store/login-session";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { RouterLink } from "vue-router";
+import router from "../../router";
+import { useFriends } from "../../models/store/friend-requests";
 
 const loginStore = LoginStore();
 const username = ref("");
 const password = ref("");
 const eyeIsToggle = ref(false);
+const userNotFound = reactive({
+  type: false,
+  message: "",
+});
+const invalidPassword = reactive({
+  type: false,
+  message: "",
+});
 
 function login() {
-  loginStore.Login(username.value, password.value);
+  loginStore
+    .Login(username.value, password.value)
+    .then(() => {
+      userNotFound.type = false;
+      invalidPassword.type = false;
+      const useStore = useFriends();
+
+      useStore.fetchPendingRequests();
+
+      router.push("/home");
+    })
+    .catch((err) => {
+      console.log(
+        "This is the error in the login form component ",
+        err.errors[0]
+      );
+
+      if (err.errors[0] === "User not found please re-enter username") {
+        userNotFound.type = true;
+        invalidPassword.type = false;
+        userNotFound.message = err.errors[0];
+      } else {
+        userNotFound.type = false;
+        invalidPassword.type = true;
+        invalidPassword.message = err.errors[0];
+      }
+    });
 }
 function toggleEye() {
   console.log(eyeIsToggle.value);
@@ -38,6 +74,9 @@ function preventEyeBall(event: any) {
         <i class="fas fa-envelope"></i>
       </span>
     </p>
+    <p style="color: red" v-if="userNotFound.type">
+      {{ userNotFound.message }}
+    </p>
   </div>
 
   <div class="field">
@@ -64,10 +103,9 @@ function preventEyeBall(event: any) {
         <i v-else class="fa-solid fa-eye"></i>
       </span>
     </p>
-  </div>
-
-  <div class="field">
-    <RouterLink to="/">Forgot password?</RouterLink>
+    <p style="color: red" v-if="invalidPassword.type">
+      {{ invalidPassword.message }}
+    </p>
   </div>
 
   <div class="field">

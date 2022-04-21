@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import UserCard from "../components/UserCard.vue";
 import { useFriends } from "../models/store/friend-requests";
 
 const useStore = useFriends();
+//Here we fetch the data from the store and update the state, still need to figure out how to get latest data
 useStore.fetchAll();
+useStore.fetchFriends();
+useStore.fetchPendingRequests();
 
 const currentTab = ref("friend-list");
 
@@ -12,7 +15,23 @@ function toggle(payload: string) {
   currentTab.value = payload;
 }
 
+watch(currentTab, () => {
+  switch (currentTab.value) {
+    case "friend-list":
+      useStore.fetchFriends();
+      break;
+    case "pending-requests":
+      useStore.fetchPendingRequests();
+      break;
+    case "active-users":
+      useStore.fetchAll();
+      break;
+  }
+});
+
 const currentList = computed(() => {
+  console.log("Im in the switch statement");
+
   switch (currentTab.value) {
     case "friend-list":
       return useStore.friendsList;
@@ -40,14 +59,14 @@ const currentList = computed(() => {
           </a>
         </li>
         <li
-          @click="toggle('friend-requests')"
-          :class="{ 'is-active': currentTab === 'friend-requests' }"
+          @click="toggle('pending-requests')"
+          :class="{ 'is-active': currentTab === 'pending-requests' }"
         >
           <a>
             <span class="icon"
               ><i class="fa-solid fa-table-list" aria-hidden="true"></i
             ></span>
-            <span>Friends Requests</span>
+            <span>Pending Requests</span>
           </a>
         </li>
         <li
@@ -65,9 +84,10 @@ const currentList = computed(() => {
     </div>
     <!-- use v-for to loop through the currently selected list from our computed property above just like with our messages -->
     <UserCard
-      v-for="user in currentList"
+      v-for="(user, index) in currentList"
       :key="user"
       :list="user"
+      :index="index"
       :currentTab="currentTab"
     ></UserCard>
   </article>

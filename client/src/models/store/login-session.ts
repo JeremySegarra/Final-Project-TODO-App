@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
 import * as users from "../user";
 import router from "../../router";
+import { apiLogin } from "../myFetch";
+import { useFriends } from "../../models/store/friend-requests";
+import { userStore } from "./user";
 
 export const LoginStore = defineStore("login", {
   state: () => ({
@@ -10,22 +13,16 @@ export const LoginStore = defineStore("login", {
   }),
   actions: {
     async Login(username: string, password: string) {
-      if (username === "" || password === "") {
-        throw { message: "Invalid username/password" };
+      try {
+        const user = await apiLogin("users/login", {
+          username,
+          password,
+        });
+        this.session.user = user.data;
+      } catch (err) {
+        throw err;
       }
       this.isLoggedIn = true;
-      const user = users.list.find((u) => u.username === username);
-
-      if (!user) {
-        throw { message: "User not found" };
-      }
-      if (user.password !== password) {
-        throw { message: "Incorrect password" };
-      }
-
-      this.session.user = user;
-
-      router.push("/home");
     },
 
     async Logout() {

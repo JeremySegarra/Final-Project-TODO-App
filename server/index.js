@@ -6,6 +6,7 @@ const proxy = require("express-http-proxy");
 const userModel = require("./models/users");
 const usersController = require("./controllers/users");
 const messagesController = require("./controllers/messages");
+const friendsController = require("./controllers/friends");
 
 const { requireAuth } = require("./models/auth");
 
@@ -44,7 +45,8 @@ app.get("/api/", (req, res) => {
   res.send("You are on the homepage");
 });
 app.use("/api/users", usersController);
-app.use("/api/messages", messagesController);
+// app.use("/api/messages", messagesController);
+app.use("/api/friends", friendsController);
 
 //allows me to not have to build out the entire server every time I want to make a change
 
