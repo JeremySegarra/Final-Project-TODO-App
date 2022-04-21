@@ -11,7 +11,6 @@ app
     userModel
       .getList()
       .then((users) => {
-        console.log(users);
         res.send({ success: true, errors: [], data: users });
       })
       .catch((err) => {
@@ -36,7 +35,6 @@ app
 
   .post("/signup", (req, res, next) => {
     const { firstname, lastname, username, email, password } = req.body;
-
     userModel
       .verifyUserCredentials(firstname, lastname, username, email, password)
       .then(() => {
@@ -52,8 +50,8 @@ app
           });
       })
       .catch((err) => {
-        console.log(err);
-        res.status(err.statusCode).send(err);
+        // console.log(err);
+        res.status(err.statusCode).send({ success: false, errors: [err] });
       });
   })
 

@@ -1,2 +1,9 @@
 ###
-GET http://localhost:3001/api/messages/friends/62559fbd18b049fb5e8ead1f
+GET http://localhost:3001/api/friends/62559fbd18b049fb5e8ead1f
+###
+POST  http://localhost:3001/api/friends/addfriend/625ddfa0618e08f0f66ff051
+Content-Type: application/json
+
+{
+ "username": "peach", "email": "P@gmail.com", "pic": "https://randomuser.me/api/portraits/men/13.jpg"
+}

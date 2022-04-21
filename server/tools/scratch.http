@@ -17,7 +17,7 @@ Content-Type: application/json
   {
     "firstName": "Donald",
     "lastName": "Christan",
-    "usernam": "CD",
+    "username": "CD",
     "email": "christian@gmail.com",
     "password": "imchristan",
     "verifypass": "imchristan",
@@ -28,12 +28,13 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3001/api/users/62559fbd18b049fb5e8ead1f
+PATCH http://localhost:3001/api/users/625b73448d3713624e9e3627
 Content-Type: application/json
 
   {
     
-    "friendsList": ["peach", "mario", "luigi"]
+    "friendsList": [{"username": "bowser", "email": "b@gmail.com", "pic": "https://randomuser.me/api/portraits/men/13.jpg"}]
+    
   }
 
 ###
@@ -44,6 +45,18 @@ Content-Type: application/json
   {
     "username": "billybob",
     "password": "Qq1!1111"
+    
+  }
+###
+
+POST http://localhost:3001/api/friends/addfriend/625b73448d3713624e9e3627
+Content-Type: application/json
+
+  {
+    
+   "username": "bowser", 
+   "email": "b@gmail.com", 
+   "pic": "https://randomuser.me/api/portraits/men/13.jpg"
     
   }
 
