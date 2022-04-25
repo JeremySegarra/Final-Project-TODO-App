@@ -10,7 +10,7 @@ export function modulerApi(
   method?: string,
   headers?: HeadersInit
 ) {
-  let options: RequestInit = {};
+  let options: RequestInit = { headers };
   console.log("Im inside my fetch modulerAPI, and the body is", body);
   console.log("The url is", url);
 
@@ -23,6 +23,7 @@ export function modulerApi(
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
+        ...headers,
       },
       body: JSON.stringify(body),
     };

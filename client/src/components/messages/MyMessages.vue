@@ -4,12 +4,12 @@ import { ref } from "vue";
 
 const store = userStore();
 
-const props = defineProps(["message", "list"]);
+const props = defineProps(["message", "list", "index"]);
 
 const completed = ref(false);
 
-function removeMessage(index: number) {
-  store.deleteMessage(index, props.list);
+function removeMessage() {
+  store.deleteMessage(props.index, props.list, props.message);
 }
 
 function setCompleted() {
@@ -32,7 +32,7 @@ function setCompleted() {
       <button
         class="delete"
         aria-label="delete"
-        @click="removeMessage(props.message.index)"
+        @click="removeMessage"
       ></button>
     </div>
     <div class="message-body">{{ props.message.message }}</div>

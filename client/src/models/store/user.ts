@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
-import { list } from "../user";
 import { currentDate } from "./current-date";
-import { loggedInUser } from "./current-login-user";
+import { LoginStore } from "./login-session";
+import { useFriends } from "./friend-requests";
+import { api, modulerApi } from "../myFetch";
 
 export const userStore = defineStore("user", {
   state: () => ({
-    list: list,
     date: currentDate(),
+    friendsStore: useFriends(),
+    sessionStore: LoginStore(),
   }),
 
   actions: {
@@ -50,59 +52,101 @@ export const userStore = defineStore("user", {
       }
     },
     addMessage(sub: string, text: string) {
-      const loggedInUserData = loggedInUser();
-
-      loggedInUserData?.myMessages.push({
-        isActive: false,
-        completed: false,
-        subject: sub,
-        message: text,
-        reciever: loggedInUserData.username,
-        sender: loggedInUserData.username,
-        date: this.date,
-      });
+      // const loggedInUserData = loggedInUser();
+      // loggedInUserData?.myMessages.push({
+      //   isActive: false,
+      //   completed: false,
+      //   subject: sub,
+      //   message: text,
+      //   reciever: loggedInUserData.username,
+      //   sender: loggedInUserData.username,
+      //   date: this.date,
+      // });
     },
-    deleteMessage(index: number, messageTab: String) {
-      const loggedInUserData = loggedInUser();
+    async deleteMessage(index: number, messageTab: String, messages: any) {
+      const user = this.sessionStore.session.user;
+      let message;
+
+      if (!user) {
+        throw new Error("You are not logged in");
+      }
 
       switch (messageTab) {
         case "my-list":
-          loggedInUserData?.myMessages.splice(index, 1);
+          message = user.myMessages.splice(index, 1);
           break;
         case "recieved":
-          loggedInUserData?.recievedMessages.splice(index, 1);
+          message = user.recievedMessages.splice(index, 1);
           break;
-        case "sent":
-          loggedInUserData?.sentMessages.splice(index, 1);
+        default:
+          message = user.sentMessages.splice(index, 1);
       }
+
+      //do api call here already updated locally
+      const payload = { ...message[0], currentTab: messageTab };
+      console.log("This is the payload: ", payload);
+
+      const deleteMessage = await this.sessionStore.api(
+        "messages/delete-message",
+        payload,
+        "DELETE"
+      );
+      console.log("This is the delete message: ", deleteMessage);
     },
 
-    sendMessage(sub: string, text: string, usernameToSend: string) {
-      const loggedInUserData = loggedInUser();
+    async sendMessage(index: number, message: string) {
+      const user = this.sessionStore.session.user;
 
-      const sendTo = this.list.find((u) => u.username === usernameToSend);
+      if (!user) {
+        throw new Error("You are not logged in");
+      }
 
+      const friend = JSON.parse(JSON.stringify(user.friendsList[index]));
+
+      const data = {
+        message,
+        reciever: friend.username,
+        sender: user.username,
+        date: this.date,
+      };
+
+      //reason why i was not getting instant results in the list was i was passing data{} and not spreading it
+      user.sentMessages.push({
+        ...data,
+      });
+
+      // console.log("this is user.sentMessages", user.sentMessages);
+
+      const sentMessage = await this.sessionStore.api(
+        "messages/send",
+        data,
+        "POST"
+      );
+
+      console.log("This is the sent message response", sentMessage);
+
+      // const loggedInUserData = loggedInUser();
+      // const sendTo = this.list.find((u) => u.username === usernameToSend);
       //populates the users recived we want to send a message too
-      sendTo?.recievedMessages.push({
-        isActive: false,
-        completed: false,
-        subject: sub,
-        message: text,
-        reciever: sendTo.username,
-        sender: loggedInUserData?.username,
-        date: this.date,
-      });
-
-      //populates the currently logged in users sent messages
-      loggedInUserData?.sentMessages.push({
-        isActive: false,
-        completed: false,
-        subject: sub,
-        message: text,
-        reciever: sendTo?.username,
-        sender: loggedInUserData?.username,
-        date: this.date,
-      });
+      // sendTo?.recievedMessages.push({
+      //   isActive: false,
+      //   completed: false,
+      //   subject: sub,
+      //   message: text,
+      //   reciever: sendTo.username,
+      //   sender: loggedInUserData?.username,
+      //   date: this.date,
+      // });
+      // //populates the currently logged in users sent messages
+      // loggedInUserData?.sentMessages.push({
+      //   isActive: false,
+      //   completed: false,
+      //   subject: sub,
+      //   message: text,
+      //   reciever: sendTo?.username,
+      //   sender: loggedInUserData?.username,
+      //   date: this.date,
+      // });
     },
   },
 });

@@ -14,7 +14,7 @@ export interface User {
   sentMessages: Array<any>;
   pendingRequests: Array<Object>;
   friendsList: Array<Object>;
-  token: string;
+  token?: string;
 }
 
 export const list: User[] = [

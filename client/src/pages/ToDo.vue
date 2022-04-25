@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { loggedInUser } from "../models/store/current-login-user";
-
+import { LoginStore } from "../models/store/login-session";
 import MyMessage from "../components/messages/MyMessages.vue";
 
 //These three variables are getting the exact users personal messages/sent/recieved
-const loggedInUserData = loggedInUser();
-const myMessage = loggedInUserData?.myMessages;
-const sentList = loggedInUserData?.sentMessages;
-const recievedMessages = loggedInUserData?.recievedMessages;
+
+const loginStore = LoginStore();
+const user = loginStore.session.user;
+
+if (!user) {
+  throw new Error("No user found");
+}
+
+const myMessage = user.myMessages;
+const sentList = user.sentMessages;
+const recievedMessages = user.recievedMessages;
 
 //this is my default tab that should be active
 const currentTab = ref("my-list");
@@ -76,6 +82,7 @@ function toggle(payload: string) {
         <MyMessage
           v-for="(message, index) in currentList"
           :key="message"
+          :index="index"
           :message="message"
           :list="currentTab"
         >

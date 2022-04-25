@@ -1,29 +1,34 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import { useFriends } from "../models/store/friend-requests";
+import { userStore } from "../models/store/user";
 
-const useStore = useFriends();
+const useFriendStore = useFriends();
+const useStore = userStore();
+
 //also need to get the props from the parent component meaning both lists
 const props = defineProps(["list", "index", "currentTab"]);
-const isAll = props.currentTab === "active-users";
-console.log("Im checking the list");
+const message = ref("");
 
-console.log(props.list);
-
-function addFriendAll(index: number) {
+function addFriendRequest(index: number) {
   //This function is going to remove the user from the logged in users Request list and add them to their Friends List in the Database
   //we need to send the data and update the database
-  useStore.friendRequest(index);
+  useFriendStore.friendRequest(index);
 }
 
 function addFriend(index: number) {
-  useStore.addFriend(index);
+  useFriendStore.addFriend(index);
 
   //maybe call remove request here? or in pinia
 }
 
 function removeRequest(index: number) {
-  useStore.removePendingRequest(index, props.currentTab);
+  useFriendStore.removePendingRequest(index, props.currentTab);
+}
+
+function sendMessage(index: number) {
+  //send message to friend
+  useStore.sendMessage(index, message.value);
 }
 </script>
 
@@ -44,12 +49,27 @@ function removeRequest(index: number) {
           <p class="subtitle is-6">{{ props.list.email }}</p>
         </div>
       </div>
+      <div class="field">
+        <div class="field-label is-normal"></div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input
+                class="input is-rounded"
+                type="email"
+                placeholder="Recipient email"
+                v-model="message"
+              />
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     <footer class="card-footer">
       <button
         href="#"
         class="card-footer-item button is-info"
-        @click="addFriendAll(props.index)"
+        @click="addFriendRequest(props.index)"
         v-if="props.currentTab === 'active-users'"
       >
         Send Friend Request
@@ -57,7 +77,7 @@ function removeRequest(index: number) {
       <button
         href="#"
         class="card-footer-item button is-info"
-        @click="addFriendAll(props.index)"
+        @click="sendMessage(props.index)"
         v-if="props.currentTab === 'friend-list'"
       >
         Send Message

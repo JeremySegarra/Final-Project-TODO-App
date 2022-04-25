@@ -34,6 +34,7 @@ app.use((req, res, next) => {
       .verifyToken(token)
       .then((user) => {
         req.user = user;
+        // console.log("user in middleware: ", user);
         next();
       })
       .catch(next);
@@ -45,8 +46,8 @@ app.get("/api/", (req, res) => {
   res.send("You are on the homepage");
 });
 app.use("/api/users", usersController);
-// app.use("/api/messages", messagesController);
 app.use("/api/friends", friendsController);
+app.use("/api/messages", messagesController);
 
 //allows me to not have to build out the entire server every time I want to make a change
 

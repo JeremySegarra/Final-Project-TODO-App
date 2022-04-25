@@ -119,8 +119,10 @@ function verifyToken(token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
+        console.log("This is the error in verifyToken", err);
         reject(err);
       } else {
+        console.log("This is the decoded token in verifyToken", decoded);
         resolve(decoded);
       }
     });

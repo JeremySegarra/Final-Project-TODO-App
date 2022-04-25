@@ -4,6 +4,7 @@ import UserCard from "../components/UserCard.vue";
 import { useFriends } from "../models/store/friend-requests";
 
 const useStore = useFriends();
+
 //Here we fetch the data from the store and update the state, still need to figure out how to get latest data
 useStore.fetchAll();
 useStore.fetchFriends();
@@ -15,23 +16,7 @@ function toggle(payload: string) {
   currentTab.value = payload;
 }
 
-watch(currentTab, () => {
-  switch (currentTab.value) {
-    case "friend-list":
-      useStore.fetchFriends();
-      break;
-    case "pending-requests":
-      useStore.fetchPendingRequests();
-      break;
-    case "active-users":
-      useStore.fetchAll();
-      break;
-  }
-});
-
 const currentList = computed(() => {
-  console.log("Im in the switch statement");
-
   switch (currentTab.value) {
     case "friend-list":
       return useStore.friendsList;

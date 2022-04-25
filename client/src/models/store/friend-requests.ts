@@ -5,7 +5,7 @@ import { apiLogin, modulerApi } from "../myFetch";
 
 export const useFriends = defineStore("friends", {
   state: () => ({
-    friendsList: [],
+    friendsList: [] as any[],
     allUsers: [],
     pendingRequests: [],
   }),
@@ -29,6 +29,18 @@ export const useFriends = defineStore("friends", {
           "POST"
         );
         console.log("This is the response to add a new user", response);
+
+        //Update the local state so that it updates automatically
+        this.pendingRequests.splice(index, 1);
+        console.log(
+          "This is the current state locally pending requests",
+          this.pendingRequests
+        );
+        this.friendsList.push(user);
+        console.log(
+          "This is the current state locally friends list",
+          this.friendsList
+        );
       } catch (err) {
         console.log("This is the error for the add friend", err);
       }
@@ -45,9 +57,14 @@ export const useFriends = defineStore("friends", {
 
       if (tab === "friend-list") {
         user = JSON.parse(JSON.stringify(this.friendsList[index]));
+        this.friendsList.splice(index, 1);
       } else {
         user = JSON.parse(JSON.stringify(this.pendingRequests[index]));
+        this.pendingRequests.splice(index, 1);
       }
+
+      console.log("This is the user to be removed", user);
+      console.log("This is the user without parseing", this.friendsList[index]);
 
       try {
         const response = await modulerApi(
