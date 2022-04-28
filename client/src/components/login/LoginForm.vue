@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { LoginStore } from "../../models/store/login-session";
 import { ref, reactive } from "vue";
-import { RouterLink } from "vue-router";
 import router from "../../router";
 import { useFriends } from "../../models/store/friend-requests";
 
@@ -30,22 +29,45 @@ function login() {
 
       router.push("/home");
     })
-    .catch((err) => {
-      console.log(
-        "This is the error in the login form component ",
-        err.errors[0]
-      );
-
-      if (err.errors[0] === "User not found please re-enter username") {
+    .catch((error) => {
+      if (error.message === "User not found please re-enter username") {
         userNotFound.type = true;
         invalidPassword.type = false;
-        userNotFound.message = err.errors[0];
+        userNotFound.message = error.message;
       } else {
         userNotFound.type = false;
         invalidPassword.type = true;
-        invalidPassword.message = err.errors[0];
+        invalidPassword.message = error.message;
       }
     });
+
+  // loginStore
+  //   .Login(username.value, password.value)
+  //   .then(() => {
+  //     userNotFound.type = false;
+  //     invalidPassword.type = false;
+  //     const useStore = useFriends();
+
+  //     useStore.fetchPendingRequests();
+
+  //     router.push("/home");
+  //   })
+  //   .catch((err) => {
+  //     console.log(
+  //       "This is the error in the login form component ",
+  //       err.errors[0]
+  //     );
+
+  //     if (err.errors[0] === "User not found please re-enter username") {
+  //       userNotFound.type = true;
+  //       invalidPassword.type = false;
+  //       userNotFound.message = err.errors[0];
+  //     } else {
+  //       userNotFound.type = false;
+  //       invalidPassword.type = true;
+  //       invalidPassword.message = err.errors[0];
+  //     }
+  //   });
 }
 function toggleEye() {
   console.log(eyeIsToggle.value);

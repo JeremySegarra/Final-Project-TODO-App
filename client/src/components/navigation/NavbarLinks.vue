@@ -3,22 +3,21 @@ import { RouterLink } from "vue-router";
 import { LoginStore } from "../../models/store/login-session";
 import LoginBadge from "../LoginBadge.vue";
 import { useFriends } from "../../models/store/friend-requests";
-import { computed, watch, ref } from "vue";
+import { computed } from "vue";
 
 const useStore = useFriends();
 const loginStore = LoginStore();
-// const requestListLength = ref(useStore.pendingRequests.length);
-//use watchder instead
 
-// watch(requestListLength, () => {
-
-// });
-const list = computed(() => {
-  // if (loginStore.isLoggedIn) {
-  //Possible error the if conditon could be our dependecy change double check if this works when we remove requests from list
-  //possible the return is not our dependecy change meaning this will not run
+const newFriendRequest = computed(() => {
   return useStore.pendingRequests.length;
-  // }
+});
+
+const newRecievedMessage = computed(() => {
+  const sessionUser = loginStore.session.user;
+  if (!sessionUser) {
+    throw new Error("No logged in user found");
+  }
+  return sessionUser.recievedMessages.length;
 });
 
 function logout() {
@@ -34,8 +33,21 @@ const props = defineProps({ display: String });
         ><strong>Home</strong></RouterLink
       >
       <RouterLink to="/todo" class="navbar-item"
-        ><strong>Messages</strong></RouterLink
-      >
+        ><strong>Messages</strong>
+        <span
+          class="icon"
+          v-if="loginStore.isLoggedIn && newRecievedMessage > 0"
+        >
+          <i class="fa-regular fa-envelope"></i>
+        </span>
+        <!-- Place a v-if here and change the number to the length of the currently logged in users pendingRequests list -->
+        <span
+          class="tag is-danger"
+          v-if="loginStore.isLoggedIn && newRecievedMessage > 0"
+        >
+          {{ newRecievedMessage }}
+        </span>
+      </RouterLink>
       <RouterLink to="/friendslist" class="navbar-item"
         ><strong>Friends List </strong>
 
@@ -43,14 +55,14 @@ const props = defineProps({ display: String });
           class="icon"
           v-if="loginStore.isLoggedIn && useStore.pendingRequests.length > 0"
         >
-          <i class="fas fa-bell"></i>
+          <i class="fa-regular fa-bell"></i>
         </span>
         <!-- Place a v-if here and change the number to the length of the currently logged in users pendingRequests list -->
         <span
           class="tag is-danger"
           v-if="loginStore.isLoggedIn && useStore.pendingRequests.length > 0"
         >
-          {{ list }}
+          {{ newFriendRequest }}
         </span>
       </RouterLink>
 

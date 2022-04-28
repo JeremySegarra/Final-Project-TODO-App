@@ -18,9 +18,10 @@ const lastname = reactive({
 });
 
 const username = reactive({
-  value: "",
+  name: "",
   isValid: true,
   isTaken: false,
+  error: "Username field cannot be empty "
 });
 
 const email = reactive({
@@ -57,11 +58,12 @@ watch(
 )
 
 watch(
-  () => username.value,
+  () => username.name,
   () => {
   // const userFound = counter.list.find((u) => u.username === username.value);
   //can change later to find the user in the backend if it exists then show the message user already exists
-  username.isValid = username.value !== "";
+  username.isValid = username.name !== "";
+  username.error = "Username field cannot be empty ";
   }
 )
 
@@ -104,7 +106,7 @@ watch(
 
 
  function validateForm() {
-  formIsValid.value = firstname.value !== "" && lastname.value !== "" && username.value !== "" && email.value !== "" && password.value !== "";
+  formIsValid.value = firstname.value !== "" && lastname.value !== "" && username.name !== "" && email.value !== "" && password.value !== "";
 
   }
 
@@ -121,12 +123,17 @@ function submitForm() {
     password.verifyIsValid = false;
     return;
   }
-  console.log(firstname.value, lastname.value, username.value, email.value, password.value);
+  if(password.verify === "")
+  {
+    password.verifyIsValid = false;
+    return;
+  }
+  console.log(firstname.value, lastname.value, username.name, email.value, password.value);
   
   useStore.setNewUser(
     firstname.value,
     lastname.value,
-    username.value,
+    username.name,
     email.value,
     password.value,
   )
@@ -135,11 +142,16 @@ function submitForm() {
   })
   .catch(err => {
     console.log("Im inside the catch block of the signup form", err.errors[0]); 
-    // if(err.type === "username") {
-    //   username.isTaken = true;
-    // }
-    // email.isTaken = true;
-    // username.isTaken = false;
+    //in here username should be taken show the error message to user and make it false so it turns red
+
+    if(err.errors[0].type === "username") {
+      console.log("Im inside the username error");
+      
+      username.isTaken = true;
+      username.error = err.errors[0].message;
+      username.isValid = false;
+    }
+    
   });
 
 }
@@ -196,7 +208,7 @@ function submitForm() {
           :class="username.isValid ? 'is-info' : 'is-danger'"
           type="text"
           placeholder="Enter a username"
-          v-model.trim="username.value"
+          v-model.trim="username.name"
           
         />
         <span class="icon is-small is-left">
@@ -204,7 +216,7 @@ function submitForm() {
         </span>
       </div>
       <p v-if="!username.isValid" class="help is-danger">
-        Username field cannot be empty
+        {{username.error}}
       </p>
     </div>
 

@@ -63,16 +63,28 @@ app
       })
       .catch(next);
   })
-  .post("/login", async (req, res, next) => {
-    try {
-      const user = await userModel.login(req.body.username, req.body.password);
-      res.send({ success: true, errors: [], data: user });
-    } catch (err) {
-      res
-        .status(err.statusCode)
-        .send({ success: false, errors: [err.message] });
+  .post(
+    "/login",
+    /*async*/ (req, res, next) => {
+      userModel
+        .login(req.body.username, req.body.password)
+        .then((user) => {
+          res.send({ success: true, errors: [], data: user });
+        })
+        .catch((err) => {
+          res.send({ success: false, errors: [err.message] });
+        });
+
+      // try {
+      //   const user = await userModel.login(req.body.username, req.body.password);
+      //   res.send({ success: true, errors: [], data: user });
+      // } catch (err) {
+      //   res
+      //     .status(err.statusCode)
+      //     .send({ success: false, errors: [err.message] });
+      // }
     }
-  })
+  )
   .post("/seed", (req, res, next) => {
     userModel
       .seed()

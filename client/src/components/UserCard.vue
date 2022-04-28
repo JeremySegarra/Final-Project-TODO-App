@@ -29,6 +29,7 @@ function removeRequest(index: number) {
 function sendMessage(index: number) {
   //send message to friend
   useStore.sendMessage(index, message.value);
+  message.value = "";
 }
 </script>
 
@@ -49,7 +50,7 @@ function sendMessage(index: number) {
           <p class="subtitle is-6">{{ props.list.email }}</p>
         </div>
       </div>
-      <div class="field">
+      <div class="field" v-if="props.currentTab === 'friend-list'">
         <div class="field-label is-normal"></div>
         <div class="field-body">
           <div class="field">
@@ -57,7 +58,7 @@ function sendMessage(index: number) {
               <input
                 class="input is-rounded"
                 type="email"
-                placeholder="Recipient email"
+                placeholder="Send Message"
                 v-model="message"
               />
             </p>
