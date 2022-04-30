@@ -3,6 +3,7 @@ import * as users from "../user";
 import router from "../../router";
 import { apiLogin } from "../myFetch";
 import { modulerApi } from "../myFetch";
+import { budgetStore } from "./budget";
 
 export const LoginStore = defineStore("login", {
   state: () => ({
@@ -34,6 +35,8 @@ export const LoginStore = defineStore("login", {
 
       this.session.user = response;
       this.isLoggedIn = true;
+      const budget = budgetStore();
+      budget.createBudget();
 
       // try {
       //   const user = await apiLogin("users/login", {

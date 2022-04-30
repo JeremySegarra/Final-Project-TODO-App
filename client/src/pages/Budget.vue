@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import BudgetForm from "../components/budget/BudgetForm.vue";
+</script>
 
 <template>
-  <div>im on budget</div>
+  <BudgetForm></BudgetForm>
 </template>
 
 <style scoped></style>
