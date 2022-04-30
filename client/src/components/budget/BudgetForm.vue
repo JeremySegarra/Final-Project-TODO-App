@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { budgetStore } from "../../models/store/budget";
-import { ref, reactive } from "vue";
+import { onBeforeMount, ref } from "vue";
 import Card from "../UI/Card.vue";
 import BudgetList from "./BudgetList.vue";
-import { Items, list } from "../../models/itemList";
 
 const store = budgetStore();
 const amount = ref("");
@@ -11,32 +10,34 @@ const description = ref("");
 const itemAmount = ref("");
 const toggleAddForm = ref(false);
 
-const itemsList = reactive(list);
+// onBeforeMount(() => {
+//   store.createBudget();
+// });
+
+// const itemsList = reactive(list);
 
 function toggle() {
   toggleAddForm.value = !toggleAddForm.value;
 }
 
 function addAmount() {
-  store.addAmount(+amount.value);
+  store.addFunds(+amount.value);
   amount.value = "";
 }
 
 function addItem() {
-  list.push({
-    description: description.value,
-    amount: +itemAmount.value,
-    id: list.length,
-  });
-  console.log(list);
+  store.addItem(description.value, +itemAmount.value);
 
   itemAmount.value = "";
   description.value = "";
 }
 
 function removeAmount() {
-  store.removeAmount(+amount.value);
+  store.removeFunds(+amount.value);
   amount.value = "";
+}
+function removeItem(index: number) {
+  store.removeItem(index, +itemAmount.value);
 }
 </script>
 
@@ -98,10 +99,11 @@ function removeAmount() {
         </p>
       </Card>
       <BudgetList
-        v-for="(item, index) in itemsList"
-        :desc="item.description"
+        v-for="(item, index) in store.$state.list"
+        :desc="item.itemDescription"
         :item="item.amount"
         :index="index"
+        @delete="removeItem(index)"
       ></BudgetList>
     </div>
   </div>

@@ -9,7 +9,11 @@ const props = defineProps(["desc", "item", "index"]);
         <strong>Purchased Item: {{ props.index }}</strong>
       </p>
 
-      <button class="delete" aria-label="delete"></button>
+      <button
+        class="delete"
+        aria-label="delete"
+        @click="$emit('delete')"
+      ></button>
     </div>
     <div class="message-body">
       You spent ${{ +props.item }} on {{ props.desc }}
