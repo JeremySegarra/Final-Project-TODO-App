@@ -55,24 +55,37 @@ app
       });
   })
 
-  .patch("/:id", (req, res, next) => {
+  .patch("/edit-user", (req, res, next) => {
     userModel
-      .update(req.params.id, req.body)
+      .update(req.user, req.body)
       .then((updatedUser) => {
+        console.log("Im in then here is updated user", updatedUser);
         res.send({ success: true, errors: [], data: updatedUser });
       })
       .catch(next);
   })
-  .post("/login", async (req, res, next) => {
-    try {
-      const user = await userModel.login(req.body.username, req.body.password);
-      res.send({ success: true, errors: [], data: user });
-    } catch (err) {
-      res
-        .status(err.statusCode)
-        .send({ success: false, errors: [err.message] });
+  .post(
+    "/login",
+    /*async*/ (req, res, next) => {
+      userModel
+        .login(req.body.username, req.body.password)
+        .then((user) => {
+          res.send({ success: true, errors: [], data: user });
+        })
+        .catch((err) => {
+          res.send({ success: false, errors: [err.message] });
+        });
+
+      // try {
+      //   const user = await userModel.login(req.body.username, req.body.password);
+      //   res.send({ success: true, errors: [], data: user });
+      // } catch (err) {
+      //   res
+      //     .status(err.statusCode)
+      //     .send({ success: false, errors: [err.message] });
+      // }
     }
-  })
+  )
   .post("/seed", (req, res, next) => {
     userModel
       .seed()

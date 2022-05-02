@@ -7,6 +7,7 @@ const userModel = require("./models/users");
 const usersController = require("./controllers/users");
 const messagesController = require("./controllers/messages");
 const friendsController = require("./controllers/friends");
+const budgetController = require("./controllers/budget");
 
 const { requireAuth } = require("./models/auth");
 
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
       .verifyToken(token)
       .then((user) => {
         req.user = user;
+        // console.log("user in middleware: ", user);
         next();
       })
       .catch(next);
@@ -45,8 +47,9 @@ app.get("/api/", (req, res) => {
   res.send("You are on the homepage");
 });
 app.use("/api/users", usersController);
-// app.use("/api/messages", messagesController);
 app.use("/api/friends", friendsController);
+app.use("/api/messages", messagesController);
+app.use("/api/budget", budgetController);
 
 //allows me to not have to build out the entire server every time I want to make a change
 

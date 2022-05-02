@@ -3,11 +3,11 @@ const { db, isConnected, ObjectId } = require("./mongo");
 //set environment variables on heroku as well the URI and changes this magic strings
 const collection = db.db("Messenger-App").collection("Users");
 
-async function addFriend(id, body) {
+async function addFriend(id, newFriend) {
   // console.log("Im inside the addFriend function in the model", id, body);
   const sessionPendingList = await collection.findOneAndUpdate(
     { _id: new ObjectId(id) },
-    { $push: { friendsList: body } }
+    { $push: { friendsList: newFriend } }
   );
 
   const sessionUser = await collection.findOne({ _id: new ObjectId(id) });
@@ -15,7 +15,7 @@ async function addFriend(id, body) {
   //body.username is the person who sent the request and we need to update the friends array of that person to add the session user
   //so if bowser friend requests donald christian and donald accepts then we update both arrays so they both become friends
   const friendPendingList = await collection.findOneAndUpdate(
-    { username: body.username },
+    { username: newFriend.username },
     {
       $push: {
         friendsList: {
@@ -26,7 +26,7 @@ async function addFriend(id, body) {
       },
     }
   );
-  const response = await denyRequest(id, body);
+  const response = await denyRequest(id, newFriend);
   console.log(
     "This is the response after denying request in addFriend model",
     response
