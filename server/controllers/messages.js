@@ -18,7 +18,7 @@ app
       });
   })
 
-  .post("/send", (req, res, next) => {
+  .post("/send", requireAuth, (req, res, next) => {
     console.log("Im inside the messages Controller");
     messageModel
       .sendMessage(req.body, req.user)
@@ -30,7 +30,7 @@ app
       });
   })
 
-  .delete("/delete-message", (req, res, next) => {
+  .delete("/delete-message", requireAuth, (req, res, next) => {
     console.log("Im inside the messages Controller in delete");
     messageModel
       .deleteMessage(req.user, req.body)

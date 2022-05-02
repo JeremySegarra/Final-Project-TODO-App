@@ -18,7 +18,7 @@ app
         res.send({ success: true, errors: [err] });
       });
   })
-  .put("/add-funds", (req, res) => {
+  .put("/add-funds", requireAuth, (req, res) => {
     console.log("This is the add-funds controller this is the body", req.body);
     userBudget
       .addFunds(req.body, req.user)
@@ -30,7 +30,7 @@ app
         res.send({ success: true, errors: [err] });
       });
   })
-  .put("/remove-funds", (req, res) => {
+  .put("/remove-funds", requireAuth, (req, res) => {
     console.log("This is the add-funds controller this is the body", req.body);
     userBudget
       .removeFunds(req.body, req.user)
@@ -42,7 +42,7 @@ app
         res.send({ success: true, errors: [err] });
       });
   })
-  .post("/add-item", (req, res) => {
+  .post("/add-item", requireAuth, (req, res) => {
     console.log("This is the add-item controller this is the body", req.body);
     userBudget
       .addItem(req.body, req.user)
@@ -54,7 +54,7 @@ app
         res.send({ success: true, errors: [err] });
       });
   })
-  .delete("/delete-item", (req, res) => {
+  .delete("/delete-item", requireAuth, (req, res) => {
     userBudget
       .removeItem(req.body, req.user)
       .then((item) => {
