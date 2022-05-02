@@ -4,8 +4,8 @@
       <Title>Login</Title>
       <p>
         <strong>Note To Professor:</strong> to easily log in without creating an
-        account use admin. <strong>Username:</strong> admin,
-        <strong>Password:</strong> k
+        account use Donald2. <strong>Username:</strong> Donald2,
+        <strong>Password:</strong> Qq1!1111
       </p>
       <Card>
         <LoginForm></LoginForm>
