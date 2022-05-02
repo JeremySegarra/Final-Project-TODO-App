@@ -37,17 +37,7 @@ export const LoginStore = defineStore("login", {
       this.isLoggedIn = true;
       const budget = budgetStore();
       budget.createBudget();
-
-      // try {
-      //   const user = await apiLogin("users/login", {
-      //     username,
-      //     password,
-      //   });
-      //   this.session.user = user.data;
-      // } catch (err) {
-      //   throw err;
-      // }
-      // this.isLoggedIn = true;
+      budget.addItem("", 0);
     },
 
     async Logout() {
@@ -60,7 +50,7 @@ export const LoginStore = defineStore("login", {
     async api(
       url: string,
       data?: any,
-      method?: "GET" | "POST" | "PUT" | "DELETE",
+      method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
       headers: any = {}
     ) {
       // console.log("This is the url", url);

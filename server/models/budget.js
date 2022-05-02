@@ -56,6 +56,12 @@ async function removeFunds(amount, user) {
 
 async function addItem(item, user) {
   console.log("Im in addItem model", item);
+
+  if (item.amount === 0 && item.itemDescription === "") {
+    const newItems = await collection.findOne({ user: user.username });
+    return newItems;
+  }
+
   const updateBudget = await collection.findOneAndUpdate(
     { user: user.username },
     { $inc: { budget: -item.amount } }

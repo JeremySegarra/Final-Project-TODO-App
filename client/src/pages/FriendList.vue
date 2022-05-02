@@ -37,9 +37,7 @@ const currentList = computed(() => {
           :class="{ 'is-active': currentTab === 'friend-list' }"
         >
           <a>
-            <span class="icon"
-              ><i class="fa-solid fa-table-list" aria-hidden="true"></i
-            ></span>
+            <span class="icon"><i class="fa-solid fa-user-group"></i></span>
             <span>Friends</span>
           </a>
         </li>
@@ -48,9 +46,7 @@ const currentList = computed(() => {
           :class="{ 'is-active': currentTab === 'pending-requests' }"
         >
           <a>
-            <span class="icon"
-              ><i class="fa-solid fa-table-list" aria-hidden="true"></i
-            ></span>
+            <span class="icon"><i class="fa-solid fa-people-pulling"></i></span>
             <span>Pending Requests</span>
           </a>
         </li>
@@ -60,7 +56,7 @@ const currentList = computed(() => {
         >
           <a>
             <span class="icon"
-              ><i class="fa-solid fa-inbox" aria-hidden="true"></i
+              ><i class="fa-solid fa-people-group" aria-hidden="true"></i
             ></span>
             <span>Active Users</span>
           </a>

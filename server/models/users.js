@@ -86,12 +86,15 @@ function remove(id) {
   return { ...user[0], password: undefined, verifypass: undefined };
 }
 
-async function update(id, newUser) {
+async function update(sessionUser, newUser) {
+  console.log("This is the session user", sessionUser);
+
   newUser.username = await collection.findOneAndUpdate(
-    { _id: new ObjectId(id) },
+    { username: sessionUser.username },
     { $set: newUser },
     { returnDocument: "after" }
   );
+  console.log("This is the new user", newUser);
   return { ...newUser, password: undefined, verifypass: undefined };
 }
 

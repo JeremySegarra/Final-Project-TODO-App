@@ -55,10 +55,11 @@ app
       });
   })
 
-  .patch("/:id", (req, res, next) => {
+  .patch("/edit-user", (req, res, next) => {
     userModel
-      .update(req.params.id, req.body)
+      .update(req.user, req.body)
       .then((updatedUser) => {
+        console.log("Im in then here is updated user", updatedUser);
         res.send({ success: true, errors: [], data: updatedUser });
       })
       .catch(next);

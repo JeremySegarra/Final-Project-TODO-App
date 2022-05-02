@@ -2,19 +2,75 @@ import { defineStore } from "pinia";
 import { currentDate } from "./current-date";
 import { LoginStore } from "./login-session";
 import { useFriends } from "./friend-requests";
-import { api, modulerApi } from "../myFetch";
 
 export const userStore = defineStore("user", {
   state: () => ({
     date: currentDate(),
     friendsStore: useFriends(),
     sessionStore: LoginStore(),
+    list: [] as any,
   }),
 
   actions: {
     randomNumberGenerator() {
       return Math.floor(Math.random() * 30) + 1;
     },
+
+    async editUser(userCredentials: any) {
+      const sessionUser = this.sessionStore.session.user;
+      if (!sessionUser) {
+        throw new Error("User not logged in");
+      }
+      console.log("edit user", userCredentials);
+
+      const response = await this.sessionStore.api(
+        "users/edit-user",
+        userCredentials,
+        "PATCH"
+      );
+
+      sessionUser.firstName = userCredentials.firstName;
+      sessionUser.lastName = userCredentials.lastName;
+      sessionUser.email = userCredentials.userName;
+
+      console.log("This is the edit response", response);
+    },
+
+    async addToDo(text: string) {
+      const user = this.sessionStore.session.user;
+      if (!user) {
+        throw new Error("User not logged in");
+      }
+
+      const todo = { message: text };
+
+      const response = await this.sessionStore.api("messages", todo, "POST");
+
+      user.myMessages.push(todo);
+    },
+    deleteToDo(index: number) {
+      const user = this.sessionStore.session.user;
+      if (!user) {
+        throw new Error("User not logged in");
+      }
+      const userMessage = user.myMessages[index].message;
+
+      const payload = {
+        message: userMessage,
+        currentTab: "my-list",
+      };
+
+      console.log("this is the payload in the client", payload);
+
+      const response = this.sessionStore.api(
+        `messages/delete-message`,
+        payload,
+        "DELETE"
+      );
+
+      user.myMessages.splice(index, 1);
+    },
+
     async setNewUser(
       firstName: string,
       lastName: string,
@@ -50,18 +106,6 @@ export const userStore = defineStore("user", {
         const error = await response.json();
         throw error;
       }
-    },
-    addMessage(sub: string, text: string) {
-      // const loggedInUserData = loggedInUser();
-      // loggedInUserData?.myMessages.push({
-      //   isActive: false,
-      //   completed: false,
-      //   subject: sub,
-      //   message: text,
-      //   reciever: loggedInUserData.username,
-      //   sender: loggedInUserData.username,
-      //   date: this.date,
-      // });
     },
     async deleteMessage(index: number, messageTab: String, messages: any) {
       const user = this.sessionStore.session.user;
@@ -124,29 +168,6 @@ export const userStore = defineStore("user", {
       );
 
       console.log("This is the sent message response", sentMessage);
-
-      // const loggedInUserData = loggedInUser();
-      // const sendTo = this.list.find((u) => u.username === usernameToSend);
-      //populates the users recived we want to send a message too
-      // sendTo?.recievedMessages.push({
-      //   isActive: false,
-      //   completed: false,
-      //   subject: sub,
-      //   message: text,
-      //   reciever: sendTo.username,
-      //   sender: loggedInUserData?.username,
-      //   date: this.date,
-      // });
-      // //populates the currently logged in users sent messages
-      // loggedInUserData?.sentMessages.push({
-      //   isActive: false,
-      //   completed: false,
-      //   subject: sub,
-      //   message: text,
-      //   reciever: sendTo?.username,
-      //   sender: loggedInUserData?.username,
-      //   date: this.date,
-      // });
     },
   },
 });

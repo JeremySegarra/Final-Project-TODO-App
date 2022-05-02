@@ -3,8 +3,6 @@ import { computed, ref } from "vue";
 import { LoginStore } from "../models/store/login-session";
 import MyMessage from "../components/messages/MyMessages.vue";
 
-//These three variables are getting the exact users personal messages/sent/recieved
-
 const loginStore = LoginStore();
 const user = loginStore.session.user;
 
@@ -12,18 +10,14 @@ if (!user) {
   throw new Error("No user found");
 }
 
-const myMessage = user.myMessages;
 const sentList = user.sentMessages;
 const recievedMessages = user.recievedMessages;
 
 //this is my default tab that should be active
-const currentTab = ref("my-list");
+const currentTab = ref("recieved");
 
 const currentList = computed(() => {
   switch (currentTab.value) {
-    case "my-list":
-      return myMessage;
-
     case "recieved":
       return recievedMessages;
 
@@ -32,7 +26,7 @@ const currentList = computed(() => {
   }
 });
 
-//This is the toggle function for myMessages/Recieved/Sent
+//This is the toggle function for /Recieved/Sent
 function toggle(payload: string) {
   currentTab.value = payload;
 }
@@ -42,17 +36,6 @@ function toggle(payload: string) {
   <section>
     <div class="tabs is-toggle is-fullwidth is-small">
       <ul>
-        <li
-          @click="toggle('my-list')"
-          :class="{ 'is-active': currentTab === 'my-list' }"
-        >
-          <a>
-            <span class="icon"
-              ><i class="fa-solid fa-table-list" aria-hidden="true"></i
-            ></span>
-            <span>My List</span>
-          </a>
-        </li>
         <li
           @click="toggle('recieved')"
           :class="{ 'is-active': currentTab === 'recieved' }"

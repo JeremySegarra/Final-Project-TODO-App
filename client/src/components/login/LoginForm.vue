@@ -40,34 +40,6 @@ function login() {
         invalidPassword.message = error.message;
       }
     });
-
-  // loginStore
-  //   .Login(username.value, password.value)
-  //   .then(() => {
-  //     userNotFound.type = false;
-  //     invalidPassword.type = false;
-  //     const useStore = useFriends();
-
-  //     useStore.fetchPendingRequests();
-
-  //     router.push("/home");
-  //   })
-  //   .catch((err) => {
-  //     console.log(
-  //       "This is the error in the login form component ",
-  //       err.errors[0]
-  //     );
-
-  //     if (err.errors[0] === "User not found please re-enter username") {
-  //       userNotFound.type = true;
-  //       invalidPassword.type = false;
-  //       userNotFound.message = err.errors[0];
-  //     } else {
-  //       userNotFound.type = false;
-  //       invalidPassword.type = true;
-  //       invalidPassword.message = err.errors[0];
-  //     }
-  //   });
 }
 function toggleEye() {
   console.log(eyeIsToggle.value);

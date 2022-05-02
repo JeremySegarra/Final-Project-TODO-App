@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { userStore } from "../../models/store/user";
 import { ref } from "vue";
+import router from "../../router";
 
 const store = userStore();
 
@@ -12,8 +13,10 @@ function removeMessage() {
   store.deleteMessage(props.index, props.list, props.message);
 }
 
-function setCompleted() {
-  completed.value = !completed.value;
+function replyMessage() {
+  console.log("Im in reply message");
+
+  router.push("/friendslist");
 }
 </script>
 
@@ -21,13 +24,17 @@ function setCompleted() {
   <article class="message" :class="completed ? 'is-primary' : 'is-info'">
     <div class="message-header">
       <p>
-        <strong>Title:</strong> {{ props.message.subject }} <br />
-        <strong>Created By:</strong> {{ props.message.sender }} <br />
+        <strong>Sent By:</strong> {{ props.message.sender }} <br />
         <strong>Date:</strong> {{ props.message.date }}
       </p>
-      <label class="checkbox">
-        <input type="checkbox" @click="setCompleted" />
-        Completed
+      <label
+        @click="replyMessage"
+        class="checkbox"
+        v-if="props.list === 'recieved'"
+      >
+        <i class="fa-solid fa-reply"></i>
+
+        Reply
       </label>
       <button
         class="delete"

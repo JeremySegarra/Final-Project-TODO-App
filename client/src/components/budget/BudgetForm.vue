@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { budgetStore } from "../../models/store/budget";
-import { onBeforeMount, ref } from "vue";
+import { ref } from "vue";
 import Card from "../UI/Card.vue";
 import BudgetList from "./BudgetList.vue";
 
@@ -9,12 +9,6 @@ const amount = ref("");
 const description = ref("");
 const itemAmount = ref("");
 const toggleAddForm = ref(false);
-
-// onBeforeMount(() => {
-//   store.createBudget();
-// });
-
-// const itemsList = reactive(list);
 
 function toggle() {
   toggleAddForm.value = !toggleAddForm.value;

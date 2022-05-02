@@ -8,6 +8,7 @@ import SignUp from "../pages/SignUp.vue";
 import ToDo from "../pages/ToDo.vue";
 import Budget from "../pages/Budget.vue";
 import FriendList from "../pages/FriendList.vue";
+import EditForm from "../pages/EditForm.vue";
 
 const routes: RouteRecordRaw[] = [
   { path: "/", component: Login },
@@ -16,6 +17,7 @@ const routes: RouteRecordRaw[] = [
   { path: "/todo", component: ToDo },
   { path: "/budget", component: Budget },
   { path: "/friendslist", component: FriendList },
+  { path: "/edit-user", component: EditForm },
 ];
 
 const router = createRouter({
@@ -26,7 +28,13 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   //list of paths that require login!
-  const protectedUrls = ["/home", "/todo", "/budget", "/friendslist"];
+  const protectedUrls = [
+    "/home",
+    "/todo",
+    "/budget",
+    "/friendslist",
+    "/edit-user",
+  ];
   const loginSession = LoginStore();
   if (protectedUrls.includes(to.path)) {
     if (!loginSession.$state.session.user) {
