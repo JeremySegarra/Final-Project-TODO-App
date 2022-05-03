@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { LoginStore } from "../models/store/login-session";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import router from "../router";
+import { computed } from "@vue/reactivity";
 const loginStore = LoginStore();
 const user = loginStore.session.user;
 if (!user) {

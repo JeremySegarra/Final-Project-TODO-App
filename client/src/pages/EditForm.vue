@@ -18,12 +18,12 @@ const lastName = reactive({
   isValid: true,
 });
 
-const userName = reactive({
-  name: "",
-  isValid: true,
-  isTaken: false,
-  error: "Username field cannot be empty ",
-});
+// const userName = reactive({
+//   name: "",
+//   isValid: true,
+//   isTaken: false,
+//   error: "Username field cannot be empty ",
+// });
 
 watch(
   () => firstName.value,
@@ -39,17 +39,17 @@ watch(
   }
 );
 
-watch(
-  () => userName.name,
-  () => {
-    // const userFound = counter.list.find((u) => u.username === username.value);
-    //can change later to find the user in the backend if it exists then show the message user already exists
-    userName.isValid = userName.name !== "";
-    userName.error = "Username field cannot be empty ";
-  }
-);
+// watch(
+//   () => userName.name,
+//   () => {
+//     // const userFound = counter.list.find((u) => u.username === username.value);
+//     //can change later to find the user in the backend if it exists then show the message user already exists
+//     userName.isValid = userName.name !== "";
+//     userName.error = "Username field cannot be empty ";
+//   }
+// );
 function validateForm() {
-  formIsValid.value = firstName.value !== "" && lastName.value !== "" && userName.name !== "";
+  formIsValid.value = firstName.value !== "" && lastName.value !== "";
 
   }
 
@@ -59,14 +59,14 @@ function edit() {
   if (formIsValid.value === false) {
     firstName.isValid = false;
     lastName.isValid = false;
-    userName.isValid = false;
+    // userName.isValid = false;
     return;
   }
 
   const userCredentials = {
     firstName: firstName.value,
     lastName: lastName.value,
-    username: userName.name,
+    // username: userName.name,
   };
 
   store.editUser(userCredentials).then(() => {
@@ -130,7 +130,7 @@ function cancel() {
       </p>
           </p>
         </div>
-        <div class="field">
+        <!-- <div class="field">
           <p class="control has-icons-left">
             <input
               class="input"
@@ -146,7 +146,7 @@ function cancel() {
         {{userName.error}}
       </p>
           </p>
-        </div>
+        </div> -->
         <div class="field">
           <p class="control">
             <button class="button is-success" @click="edit">Edit</button>

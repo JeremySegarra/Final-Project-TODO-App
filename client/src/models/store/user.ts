@@ -21,17 +21,20 @@ export const userStore = defineStore("user", {
       if (!sessionUser) {
         throw new Error("User not logged in");
       }
-      console.log("edit user", userCredentials);
+      // console.log("edit user", userCredentials);
+      console.log("this is the session user", sessionUser.username);
+      // console.log(sessionUser.username);
 
       const response = await this.sessionStore.api(
         "users/edit-user",
         userCredentials,
         "PATCH"
       );
+      console.log("this is the session user take 2", sessionUser.username);
 
       sessionUser.firstName = userCredentials.firstName;
       sessionUser.lastName = userCredentials.lastName;
-      sessionUser.email = userCredentials.userName;
+      // sessionUser.username = userCredentials.userName;
 
       console.log("This is the edit response", response);
     },

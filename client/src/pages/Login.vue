@@ -4,7 +4,7 @@
       <Title>Login</Title>
       <p>
         <strong>Note To Professor:</strong> to easily log in without creating an
-        account use Donald2. <strong>Username:</strong> Donald2,
+        account use donald. <strong>Username:</strong> donald,
         <strong>Password:</strong> Qq1!1111
       </p>
       <Card>
