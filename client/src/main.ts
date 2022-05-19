@@ -11,6 +11,8 @@ import Card from "./components/UI/Card.vue";
 
 import App from "./App.vue";
 import router from "./router";
+import Oruga from "@oruga-ui/oruga-next";
+import "@oruga-ui/oruga-next/dist/oruga.css";
 
 const app = createApp(App);
 app.component("Footer", Footer);
@@ -18,5 +20,6 @@ app.component("HeaderNavbar", HeaderNavbar);
 app.component("Card", Card);
 app.use(router);
 app.use(createPinia());
+app.use(Oruga);
 
 app.mount("#app");

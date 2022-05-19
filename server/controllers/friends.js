@@ -41,6 +41,21 @@ app
         res.send({ success: false, errors: [err] });
       });
   })
+
+  .put("/filter", (req, res, next) => {
+    //Was unsure if I needed to change the list so i made it a put request
+    console.log("Im inside the filter middleware");
+    console.log("req.body", req.body);
+    friendsModel
+      .getFilteredList(req.body, req.user)
+      .then((filteredUsers) => {
+        res.send({ success: true, errors: [], data: filteredUsers });
+      })
+      .catch((err) => {
+        res.send({ success: false, errors: [err] });
+      });
+  })
+
   .post("/friend_request/:id", (req, res, next) => {
     console.log("Im inside the addfriend middleware");
 

@@ -11,6 +11,7 @@ useStore.fetchFriends();
 useStore.fetchPendingRequests();
 
 const currentTab = ref("friend-list");
+const searchField = ref("");
 
 function toggle(payload: string) {
   currentTab.value = payload;
@@ -26,6 +27,13 @@ const currentList = computed(() => {
       return useStore.allUsers;
   }
 });
+
+//This is the function to search my friends list
+function selectFriends() {
+  console.log("Im inside select friends");
+
+  useStore.filteredDataArray(searchField.value);
+}
 </script>
 
 <template>
@@ -62,6 +70,24 @@ const currentList = computed(() => {
           </a>
         </li>
       </ul>
+    </div>
+
+    <div class="container">
+      <section>
+        <o-field label="Find a Friend">
+          <o-autocomplete
+            rounded
+            expanded
+            placeholder="Friends Name"
+            icon="search"
+            v-model="searchField"
+            clearable
+            @keyup="selectFriends"
+          >
+            <template slot="empty">No results found</template>
+          </o-autocomplete>
+        </o-field>
+      </section>
     </div>
     <!-- use v-for to loop through the currently selected list from our computed property above just like with our messages -->
     <UserCard

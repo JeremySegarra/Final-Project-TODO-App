@@ -81,6 +81,43 @@ async function getFriends(id) {
   return { ...user, password: undefined };
 }
 
+async function getFilteredList(payload, sessionUser) {
+  //The payload is the letter we typed in the search bar
+  // const user = await collection.findOne({ username: sessionUser.username });
+
+  // const filteredList = user.friendsList.filter((friend) => {
+  //   return friend.username
+  //     .toLowerCase()
+  //     .includes(payload.searchField.toLowerCase());
+  // });
+
+  //******* Tried getting this aggregate way to work I think i got it!*******/
+
+  const filteredList = await collection
+    .aggregate([
+      {
+        $match: { username: sessionUser.username },
+      },
+      {
+        $unwind: "$friendsList",
+      },
+      {
+        $match: {
+          "friendsList.username": {
+            $regex: payload.searchField,
+            $options: "i",
+          },
+        },
+      },
+      { $group: { _id: "$_id", friendsList: { $push: "$friendsList" } } },
+    ])
+    .toArray();
+
+  console.log("This is the filtered list", filteredList[0].friendsList);
+
+  return filteredList[0].friendsList;
+}
+
 async function friendRequest(id, body) {
   console.log("Im inside the addFriend function", id, body);
   const user = await collection.findOneAndUpdate(
@@ -95,3 +132,4 @@ module.exports.denyRequest = denyRequest;
 module.exports.addFriend = addFriend;
 module.exports.friendRequest = friendRequest;
 module.exports.getFriends = getFriends;
+module.exports.getFilteredList = getFilteredList;

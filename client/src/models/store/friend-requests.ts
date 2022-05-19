@@ -10,6 +10,22 @@ export const useFriends = defineStore("friends", {
     pendingRequests: [],
   }),
   actions: {
+    async filteredDataArray(searchField: string) {
+      //Donald is the best user to test this since he has multiple friends
+
+      console.log("Im inside the filteredDataArray in pinia");
+      console.log("This is the searchfield", searchField);
+      const loginStore = LoginStore();
+
+      const filteredFriends = await loginStore.api(
+        "friends/filter",
+        { searchField },
+        "PUT"
+      );
+      console.log("This is the filteredFriends", filteredFriends);
+      this.friendsList = filteredFriends;
+    },
+
     async addFriend(index: number) {
       //this function will add a user from the pending request list, remove that user and add it to the friends list of the logged in user
       //When the user accepts the request boths users will be added to each other's friends list
